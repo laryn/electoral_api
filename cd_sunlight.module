@@ -350,7 +350,7 @@ function cd_sunlight_api_lookup($method, $params, &$error_message = '') {
 
   // Call the URL and check for errors.
   $params['apikey'] = variable_get('cd_sunlight_api_key', '');
-  $url = url('http://services.sunlightlabs.com/api/' . $method . '.json', array('query' => $params));
+  $url = url('https://congress.api.sunlightfoundation.com/'. $method, array('query' => $params));
   $response = drupal_http_request($url);
 
   // Increment our counter.
@@ -381,17 +381,9 @@ function cd_sunlight_api_lookup($method, $params, &$error_message = '') {
     return FALSE;
   }
 
-  // Make this deep array easier to work with.
-  $result = current(current($result));
-
-  // If there are no results for our query $result will just be an empty array.
-  $new_array = array();
-  foreach ($result as $key => $value) {
-    $new_array[$key] = current($value);
-  }
-
-  return $new_array;
-
+  // The results are stored in the 'results' key. If none, it is an empty array.
+  $result = current($result);
+  return $result;
 }
 
 /**
