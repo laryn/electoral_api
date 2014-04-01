@@ -142,35 +142,35 @@ function cd_sunlight_views_default_views() {
   $handler->display->display_options['fields']['title']['hide_empty'] = 0;
   $handler->display->display_options['fields']['title']['empty_zero'] = 0;
   /* Field: Congress: First Name */
-  $handler->display->display_options['fields']['firstname']['id'] = 'firstname';
-  $handler->display->display_options['fields']['firstname']['table'] = 'cd_sunlight_legislators';
-  $handler->display->display_options['fields']['firstname']['field'] = 'firstname';
-  $handler->display->display_options['fields']['firstname']['label'] = '';
-  $handler->display->display_options['fields']['firstname']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['firstname']['alter']['alter_text'] = 0;
-  $handler->display->display_options['fields']['firstname']['alter']['make_link'] = 0;
-  $handler->display->display_options['fields']['firstname']['alter']['trim'] = 0;
-  $handler->display->display_options['fields']['firstname']['alter']['word_boundary'] = 1;
-  $handler->display->display_options['fields']['firstname']['alter']['ellipsis'] = 1;
-  $handler->display->display_options['fields']['firstname']['alter']['strip_tags'] = 0;
-  $handler->display->display_options['fields']['firstname']['alter']['html'] = 0;
-  $handler->display->display_options['fields']['firstname']['hide_empty'] = 0;
-  $handler->display->display_options['fields']['firstname']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['first_name']['id'] = 'first_name';
+  $handler->display->display_options['fields']['first_name']['table'] = 'cd_sunlight_legislators';
+  $handler->display->display_options['fields']['first_name']['field'] = 'first_name';
+  $handler->display->display_options['fields']['first_name']['label'] = '';
+  $handler->display->display_options['fields']['first_name']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['first_name']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['first_name']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['first_name']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['first_name']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['first_name']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['first_name']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['first_name']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['first_name']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['first_name']['empty_zero'] = 0;
   /* Field: Congress: Middle Name */
-  $handler->display->display_options['fields']['middlename']['id'] = 'middlename';
-  $handler->display->display_options['fields']['middlename']['table'] = 'cd_sunlight_legislators';
-  $handler->display->display_options['fields']['middlename']['field'] = 'middlename';
-  $handler->display->display_options['fields']['middlename']['label'] = '';
-  $handler->display->display_options['fields']['middlename']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['middlename']['alter']['alter_text'] = 0;
-  $handler->display->display_options['fields']['middlename']['alter']['make_link'] = 0;
-  $handler->display->display_options['fields']['middlename']['alter']['trim'] = 0;
-  $handler->display->display_options['fields']['middlename']['alter']['word_boundary'] = 1;
-  $handler->display->display_options['fields']['middlename']['alter']['ellipsis'] = 1;
-  $handler->display->display_options['fields']['middlename']['alter']['strip_tags'] = 0;
-  $handler->display->display_options['fields']['middlename']['alter']['html'] = 0;
-  $handler->display->display_options['fields']['middlename']['hide_empty'] = 0;
-  $handler->display->display_options['fields']['middlename']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['middle_name']['id'] = 'middle_name';
+  $handler->display->display_options['fields']['middle_name']['table'] = 'cd_sunlight_legislators';
+  $handler->display->display_options['fields']['middle_name']['field'] = 'middle_name';
+  $handler->display->display_options['fields']['middle_name']['label'] = '';
+  $handler->display->display_options['fields']['middle_name']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['middle_name']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['middle_name']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['middle_name']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['middle_name']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['middle_name']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['middle_name']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['middle_name']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['middle_name']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['middle_name']['empty_zero'] = 0;
   /* Field: Congress: Nickname */
   $handler->display->display_options['fields']['nickname']['id'] = 'nickname';
   $handler->display->display_options['fields']['nickname']['table'] = 'cd_sunlight_legislators';
@@ -189,20 +189,20 @@ function cd_sunlight_views_default_views() {
   $handler->display->display_options['fields']['nickname']['empty_zero'] = 0;
   $handler->display->display_options['fields']['nickname']['quotes'] = 1;
   /* Field: Congress: Last Name */
-  $handler->display->display_options['fields']['lastname']['id'] = 'lastname';
-  $handler->display->display_options['fields']['lastname']['table'] = 'cd_sunlight_legislators';
-  $handler->display->display_options['fields']['lastname']['field'] = 'lastname';
-  $handler->display->display_options['fields']['lastname']['label'] = '';
-  $handler->display->display_options['fields']['lastname']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['lastname']['alter']['alter_text'] = 0;
-  $handler->display->display_options['fields']['lastname']['alter']['make_link'] = 0;
-  $handler->display->display_options['fields']['lastname']['alter']['trim'] = 0;
-  $handler->display->display_options['fields']['lastname']['alter']['word_boundary'] = 1;
-  $handler->display->display_options['fields']['lastname']['alter']['ellipsis'] = 1;
-  $handler->display->display_options['fields']['lastname']['alter']['strip_tags'] = 0;
-  $handler->display->display_options['fields']['lastname']['alter']['html'] = 0;
-  $handler->display->display_options['fields']['lastname']['hide_empty'] = 0;
-  $handler->display->display_options['fields']['lastname']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['last_name']['id'] = 'last_name';
+  $handler->display->display_options['fields']['last_name']['table'] = 'cd_sunlight_legislators';
+  $handler->display->display_options['fields']['last_name']['field'] = 'last_name';
+  $handler->display->display_options['fields']['last_name']['label'] = '';
+  $handler->display->display_options['fields']['last_name']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['last_name']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['last_name']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['last_name']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['last_name']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['last_name']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['last_name']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['last_name']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['last_name']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['last_name']['empty_zero'] = 0;
   /* Field: Congress: Name Suffix */
   $handler->display->display_options['fields']['name_suffix']['id'] = 'name_suffix';
   $handler->display->display_options['fields']['name_suffix']['table'] = 'cd_sunlight_legislators';
@@ -240,7 +240,7 @@ function cd_sunlight_views_default_views() {
   $handler->display->display_options['fields']['nothing_2']['ui_name'] = 'FULL NAME';
   $handler->display->display_options['fields']['nothing_2']['label'] = '';
   $handler->display->display_options['fields']['nothing_2']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['nothing_2']['alter']['text'] = '<h4 class="representative-fullname">[title] [firstname] [middlename] [nickname] [lastname] [name_suffix] [party]</h4>';
+  $handler->display->display_options['fields']['nothing_2']['alter']['text'] = '<h4 class="representative-fullname">[title] [first_name] [middle_name] [nickname] [last_name] [name_suffix] [party]</h4>';
   $handler->display->display_options['fields']['nothing_2']['alter']['make_link'] = 0;
   $handler->display->display_options['fields']['nothing_2']['alter']['absolute'] = 0;
   $handler->display->display_options['fields']['nothing_2']['alter']['external'] = 0;
@@ -254,25 +254,25 @@ function cd_sunlight_views_default_views() {
   $handler->display->display_options['fields']['nothing_2']['element_default_classes'] = 1;
   $handler->display->display_options['fields']['nothing_2']['hide_empty'] = 0;
   $handler->display->display_options['fields']['nothing_2']['empty_zero'] = 0;
-  /* Field: Congress: Webform */
-  $handler->display->display_options['fields']['webform']['id'] = 'webform';
-  $handler->display->display_options['fields']['webform']['table'] = 'cd_sunlight_legislators';
-  $handler->display->display_options['fields']['webform']['field'] = 'webform';
-  $handler->display->display_options['fields']['webform']['label'] = '';
-  $handler->display->display_options['fields']['webform']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['webform']['alter']['alter_text'] = 0;
-  $handler->display->display_options['fields']['webform']['alter']['make_link'] = 0;
-  $handler->display->display_options['fields']['webform']['alter']['absolute'] = 0;
-  $handler->display->display_options['fields']['webform']['alter']['trim'] = 0;
-  $handler->display->display_options['fields']['webform']['alter']['word_boundary'] = 1;
-  $handler->display->display_options['fields']['webform']['alter']['ellipsis'] = 1;
-  $handler->display->display_options['fields']['webform']['alter']['strip_tags'] = 0;
-  $handler->display->display_options['fields']['webform']['alter']['html'] = 0;
-  $handler->display->display_options['fields']['webform']['hide_empty'] = 1;
-  $handler->display->display_options['fields']['webform']['empty_zero'] = 0;
-  $handler->display->display_options['fields']['webform']['display_as_link'] = 1;
-  $handler->display->display_options['fields']['webform']['display_as_favicon'] = 0;
-  $handler->display->display_options['fields']['webform']['new_window'] = 1;
+  /* Field: Congress: Contact Form */
+  $handler->display->display_options['fields']['contact_form']['id'] = 'contact_form';
+  $handler->display->display_options['fields']['contact_form']['table'] = 'cd_sunlight_legislators';
+  $handler->display->display_options['fields']['contact_form']['field'] = 'contact_form';
+  $handler->display->display_options['fields']['contact_form']['label'] = '';
+  $handler->display->display_options['fields']['contact_form']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['contact_form']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['contact_form']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['contact_form']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['contact_form']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['contact_form']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['contact_form']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['contact_form']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['contact_form']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['contact_form']['hide_empty'] = 1;
+  $handler->display->display_options['fields']['contact_form']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['contact_form']['display_as_link'] = 1;
+  $handler->display->display_options['fields']['contact_form']['display_as_favicon'] = 0;
+  $handler->display->display_options['fields']['contact_form']['new_window'] = 1;
   /* Field: Congress: Facebook URL */
   $handler->display->display_options['fields']['facebook_url']['id'] = 'facebook_url';
   $handler->display->display_options['fields']['facebook_url']['table'] = 'cd_sunlight_legislators';
@@ -316,24 +316,24 @@ function cd_sunlight_views_default_views() {
   $handler->display->display_options['fields']['twitter_id']['display_as_favicon'] = 1;
   $handler->display->display_options['fields']['twitter_id']['new_window'] = 1;
   /* Field: Congress: YouTube Page */
-  $handler->display->display_options['fields']['youtube_url']['id'] = 'youtube_url';
-  $handler->display->display_options['fields']['youtube_url']['table'] = 'cd_sunlight_legislators';
-  $handler->display->display_options['fields']['youtube_url']['field'] = 'youtube_url';
-  $handler->display->display_options['fields']['youtube_url']['label'] = '';
-  $handler->display->display_options['fields']['youtube_url']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['youtube_url']['alter']['alter_text'] = 0;
-  $handler->display->display_options['fields']['youtube_url']['alter']['make_link'] = 0;
-  $handler->display->display_options['fields']['youtube_url']['alter']['absolute'] = 0;
-  $handler->display->display_options['fields']['youtube_url']['alter']['trim'] = 0;
-  $handler->display->display_options['fields']['youtube_url']['alter']['word_boundary'] = 1;
-  $handler->display->display_options['fields']['youtube_url']['alter']['ellipsis'] = 1;
-  $handler->display->display_options['fields']['youtube_url']['alter']['strip_tags'] = 0;
-  $handler->display->display_options['fields']['youtube_url']['alter']['html'] = 0;
-  $handler->display->display_options['fields']['youtube_url']['hide_empty'] = 1;
-  $handler->display->display_options['fields']['youtube_url']['empty_zero'] = 0;
-  $handler->display->display_options['fields']['youtube_url']['display_as_link'] = 1;
-  $handler->display->display_options['fields']['youtube_url']['display_as_favicon'] = 1;
-  $handler->display->display_options['fields']['youtube_url']['new_window'] = 1;
+  $handler->display->display_options['fields']['youtube_id']['id'] = 'youtube_id';
+  $handler->display->display_options['fields']['youtube_id']['table'] = 'cd_sunlight_legislators';
+  $handler->display->display_options['fields']['youtube_id']['field'] = 'youtube_id';
+  $handler->display->display_options['fields']['youtube_id']['label'] = '';
+  $handler->display->display_options['fields']['youtube_id']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['youtube_id']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['youtube_id']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['youtube_id']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['youtube_id']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['youtube_id']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['youtube_id']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['youtube_id']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['youtube_id']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['youtube_id']['hide_empty'] = 1;
+  $handler->display->display_options['fields']['youtube_id']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['youtube_id']['display_as_link'] = 1;
+  $handler->display->display_options['fields']['youtube_id']['display_as_favicon'] = 1;
+  $handler->display->display_options['fields']['youtube_id']['new_window'] = 1;
   /* Field: Congress: BioGuide page */
   $handler->display->display_options['fields']['bioguide_id']['id'] = 'bioguide_id';
   $handler->display->display_options['fields']['bioguide_id']['table'] = 'cd_sunlight_legislators';
@@ -372,25 +372,6 @@ function cd_sunlight_views_default_views() {
   $handler->display->display_options['fields']['govtrack_id']['display_as_link'] = 1;
   $handler->display->display_options['fields']['govtrack_id']['display_as_favicon'] = 1;
   $handler->display->display_options['fields']['govtrack_id']['new_window'] = 1;
-  /* Field: Congress: OpenCongress page */
-  $handler->display->display_options['fields']['congresspedia_url']['id'] = 'congresspedia_url';
-  $handler->display->display_options['fields']['congresspedia_url']['table'] = 'cd_sunlight_legislators';
-  $handler->display->display_options['fields']['congresspedia_url']['field'] = 'congresspedia_url';
-  $handler->display->display_options['fields']['congresspedia_url']['label'] = '';
-  $handler->display->display_options['fields']['congresspedia_url']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['congresspedia_url']['alter']['alter_text'] = 0;
-  $handler->display->display_options['fields']['congresspedia_url']['alter']['make_link'] = 0;
-  $handler->display->display_options['fields']['congresspedia_url']['alter']['absolute'] = 0;
-  $handler->display->display_options['fields']['congresspedia_url']['alter']['trim'] = 0;
-  $handler->display->display_options['fields']['congresspedia_url']['alter']['word_boundary'] = 1;
-  $handler->display->display_options['fields']['congresspedia_url']['alter']['ellipsis'] = 1;
-  $handler->display->display_options['fields']['congresspedia_url']['alter']['strip_tags'] = 0;
-  $handler->display->display_options['fields']['congresspedia_url']['alter']['html'] = 0;
-  $handler->display->display_options['fields']['congresspedia_url']['hide_empty'] = 1;
-  $handler->display->display_options['fields']['congresspedia_url']['empty_zero'] = 0;
-  $handler->display->display_options['fields']['congresspedia_url']['display_as_link'] = 1;
-  $handler->display->display_options['fields']['congresspedia_url']['display_as_favicon'] = 1;
-  $handler->display->display_options['fields']['congresspedia_url']['new_window'] = 1;
   /* Field: Congress: OpenSecrets page */
   $handler->display->display_options['fields']['crp_id']['id'] = 'crp_id';
   $handler->display->display_options['fields']['crp_id']['table'] = 'cd_sunlight_legislators';
@@ -455,7 +436,7 @@ function cd_sunlight_views_default_views() {
   $handler->display->display_options['fields']['nothing_3']['ui_name'] = 'LINKS';
   $handler->display->display_options['fields']['nothing_3']['label'] = '';
   $handler->display->display_options['fields']['nothing_3']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['nothing_3']['alter']['text'] = '<div class="representative-links">[webform] [facebook_url] [twitter_id] [youtube_url] [bioguide_id] [govtrack_id] [congresspedia_url] [crp_id] [progressive_punch] [votesmart_id]</div>';
+  $handler->display->display_options['fields']['nothing_3']['alter']['text'] = '<div class="representative-links">[contact_form] [facebook_url] [twitter_id] [youtube_id] [bioguide_id] [govtrack_id] [crp_id] [progressive_punch] [votesmart_id]</div>';
   $handler->display->display_options['fields']['nothing_3']['alter']['make_link'] = 0;
   $handler->display->display_options['fields']['nothing_3']['alter']['absolute'] = 0;
   $handler->display->display_options['fields']['nothing_3']['alter']['external'] = 0;
@@ -639,8 +620,8 @@ function cd_sunlight_views_default_views() {
     t('.'),
     t(','),
     t('<h3>[state][district] [chamber]</h3>'),
-    t('<h4 class="representative-fullname">[title] [firstname] [middlename] [nickname] [lastname] [name_suffix] [party]</h4>'),
-    t('<div class="representative-links">[webform] [facebook_url] [twitter_id] [youtube_url] [bioguide_id] [govtrack_id] [congresspedia_url] [crp_id] [progressive_punch] [votesmart_id]</div>'),
+    t('<h4 class="representative-fullname">[title] [first_name] [middle_name] [nickname] [last_name] [name_suffix] [party]</h4>'),
+    t('<div class="representative-links">[contact_form] [facebook_url] [twitter_id] [youtube_id] [bioguide_id] [govtrack_id] [crp_id] [progressive_punch] [votesmart_id]</div>'),
     t('p: [phone]'),
     t('f: [fax]'),
     t('<div class="representative-phones">[phone] [fax]</div>'),
