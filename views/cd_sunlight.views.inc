@@ -15,7 +15,7 @@ function cd_sunlight_views_data() {
     'title' => t('Congress'),
     'help' => t("The current members of Congress as returned by the Sunlight API."),
   );
-  $data['cd_sunlight_legislators']['firstname'] = array(
+  $data['cd_sunlight_legislators']['first_name'] = array(
     'title' => t('First Name'),
     'help' => ' ',
     'field' => array(
@@ -23,7 +23,7 @@ function cd_sunlight_views_data() {
       'click sortable' => TRUE,
     ),
   );
-  $data['cd_sunlight_legislators']['middlename'] = array(
+  $data['cd_sunlight_legislators']['middle_name'] = array(
     'title' => t('Middle Name'),
     'help' => ' ',
     'field' => array(
@@ -31,7 +31,7 @@ function cd_sunlight_views_data() {
       'click sortable' => TRUE,
     ),
   );
-  $data['cd_sunlight_legislators']['lastname'] = array(
+  $data['cd_sunlight_legislators']['last_name'] = array(
     'title' => t('Last Name'),
     'help' => ' ',
     'field' => array(
@@ -176,23 +176,15 @@ function cd_sunlight_views_data() {
       'click sortable' => TRUE,
     ),
   );
-  $data['cd_sunlight_legislators']['webform'] = array(
-    'title' => t('Webform'),
+  $data['cd_sunlight_legislators']['contact_form'] = array(
+    'title' => t('Contact Form'),
     'help' => t("URL of the congress person's web-based contact form."),
     'field' => array(
-      'handler' => 'cd_sunlight_handler_field_url_favicon_webform',
+      'handler' => 'cd_sunlight_handler_field_url_favicon_contact_form',
       'click sortable' => TRUE,
     ),
   );
-  $data['cd_sunlight_legislators']['email'] = array(
-    'title' => t('Email'),
-    'help' => ' ',
-    'field' => array(
-      'handler' => 'cd_sunlight_handler_field_url',
-      'click sortable' => TRUE,
-    ),
-  );
-  $data['cd_sunlight_legislators']['congress_office'] = array(
+  $data['cd_sunlight_legislators']['office'] = array(
     'title' => t('Congress Office'),
     'help' => 'Office address',
     'field' => array(
@@ -240,14 +232,6 @@ function cd_sunlight_views_data() {
       'click sortable' => TRUE,
     ),
   );
-  $data['cd_sunlight_legislators']['congresspedia_url'] = array(
-    'title' => t('OpenCongress page'),
-    'help' => t('http://www.opencongress.org/'),
-    'field' => array(
-      'handler' => 'cd_sunlight_handler_field_url_favicon_congresspedia',
-      'click sortable' => TRUE,
-    ),
-  );
   $data['cd_sunlight_legislators']['twitter_id'] = array(
     'title' => t('Twitter Page'),
     'help' => t('http://twitter.com/'),
@@ -256,7 +240,7 @@ function cd_sunlight_views_data() {
       'click sortable' => TRUE,
     ),
   );
-  $data['cd_sunlight_legislators']['youtube_url'] = array(
+  $data['cd_sunlight_legislators']['youtube_id'] = array(
     'title' => t('YouTube Page'),
     'help' => t('http://youtube.com/'),
     'field' => array(
@@ -357,7 +341,7 @@ function cd_sunlight_views_handlers() {
         'parent' => 'cd_sunlight_handler_field_url_favicon',
         'file' => 'cd_sunlight_handler_field_url.inc',
       ),
-      'cd_sunlight_handler_field_url_favicon_webform' => array(
+      'cd_sunlight_handler_field_url_favicon_contact_form' => array(
         'parent' => 'cd_sunlight_handler_field_url_favicon_generic',
         'file' => 'cd_sunlight_handler_field_url.inc',
       ),

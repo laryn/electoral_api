@@ -355,11 +355,11 @@ class cd_sunlight_handler_field_url_favicon_generic extends cd_sunlight_handler_
 }
 
 /**
- * Field handler to provide favicon for Webforms.
+ * Field handler to provide favicon for Contact Forms.
  *
  * @ingroup views_field_handlers
  */
-class cd_sunlight_handler_field_url_favicon_webform extends cd_sunlight_handler_field_url_favicon_generic {
+class cd_sunlight_handler_field_url_favicon_contact_form extends cd_sunlight_handler_field_url_favicon_generic {
 
   function render($values) {
     $this->human_readable = 'Contact form';
@@ -369,7 +369,7 @@ class cd_sunlight_handler_field_url_favicon_webform extends cd_sunlight_handler_
 }
 
 /**
- * Field handler to provide favicon for Webforms.
+ * Field handler to provide favicon for Contact Forms.
  *
  * @ingroup views_field_handlers
  */
