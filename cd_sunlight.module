@@ -434,7 +434,7 @@ function cd_sunlight_api_lookup_contact($contact) {
     $params['latitude'] = $latitude;
     $params['longitude'] = $longitude;
     $error_message = '';
-    $cd_data = cd_sunlight_api_lookup('districts.getDistrictFromLatLong', $params, $error_message);
+    $cd_data = cd_sunlight_api_lookup('districts/locate', $params, $error_message);
 
     // We have a special edge case where sometimes, if a point is on the edge of the country
     // (usually an ocean) it may lie outside of the polygon.  In these cases we will re-run the
@@ -458,7 +458,7 @@ function cd_sunlight_api_lookup_contact($contact) {
   }
   elseif (!empty($zip)) {
     $params['zip'] = $zip;
-    $cd_data = cd_sunlight_api_lookup('districts.getDistrictsFromZip', $params);
+    $cd_data = cd_sunlight_api_lookup('districts/locate', $params);
   }
   else {
     watchdog('cd_sunlight',
@@ -616,7 +616,10 @@ function _cd_sunlight_legislator_delete($params) {
   }
   $query = db_delete('cd_sunlight_legislators');
   foreach ($params as $field => &$value) {
-    $query->condition($field, $value);
+    // Do not alter the query based on pagination parameters.
+    if($field != 'per_page') {
+      $query->condition($field, $value);
+    }
   }
   $query->execute();
 }
@@ -677,7 +680,7 @@ function _cd_sunlight_legislator_save(array $legislator) {
  */
 function _cd_sunlight_legislators_apilookup($params) {
   $error_message = '';
-  $result = cd_sunlight_api_lookup('legislators.getList', $params, $error_message);
+  $result = cd_sunlight_api_lookup('legislators', $params, $error_message);
   if ($result === FALSE) {
     watchdog('cd_sunlight', 'Error from Sunlight: @data.  For legislator lookup: @query',
       array('@data' => $error_message, '@query' => var_export($params, TRUE)), WATCHDOG_ERROR);
@@ -698,7 +701,8 @@ function _cd_sunlight_congress_update_all() {
 
   // Update all Senators.
   $params = array(
-    'in_office' => TRUE,
+    'in_office' => 'true',
+    'per_page' => 'all',
   );
   $query = drupal_http_build_query($params);
   $legislators = _cd_sunlight_legislators_apilookup($params);
