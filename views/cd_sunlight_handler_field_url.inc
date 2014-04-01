@@ -162,7 +162,7 @@ class cd_sunlight_handler_field_url_favicon_youtube extends cd_sunlight_handler_
   function render($values) {
     $this->favicon_url = 'http://www.youtube.com/favicon.ico';
     $this->human_readable = 'YouTube';
-    $this->url_path = $values->{$this->field_alias};
+    $this->url_path = 'http://www.youtube.com/user/' . $values->{$this->field_alias};
     $this->url_query = NULL;
     return parent::render($values);
   }
