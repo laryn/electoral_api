@@ -634,8 +634,8 @@ function _cd_sunlight_legislator_delete($params) {
  *    'title' => 'Rep',
  *    'state' => 'NY',
  *    'district' => '17',
- *    'firstname' => 'Jane',
- *    'lastname' => 'Doe',
+ *    'first_name' => 'Jane',
+ *    'last_name' => 'Doe',
  *    ...
  *  );
  * @return boolean
@@ -665,15 +665,15 @@ function _cd_sunlight_legislator_save(array $legislator) {
  *        'title' => 'Rep',
  *        'state' => 'NY',
  *        'district' => '17',
- *        'firstname' => 'Jane',
- *        'lastname' => 'Doe',
+ *        'first_name' => 'Jane',
+ *        'last_name' => 'Doe',
  *        ...
  *      ),
  *      1 => array(
  *        'title' => 'Sen',
  *        'state' => 'NY',
- *        'firstname' => 'John',
- *        'lastname' => 'Doe',
+ *        'first_name' => 'John',
+ *        'last_name' => 'Doe',
  *        ...
  *      ),
  *    );
