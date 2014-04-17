@@ -531,3 +531,92 @@ function cd_sunlight_update_7100() {
   
   return t('Clear appropriate caches.');
 }
+
+/**
+ * Update the schema to reflect the new Sunlight API.
+ */
+function cd_sunlight_update_7101() {
+  // Some fields need to be updated, most of which are just name changes.
+  $updates = array(
+    'firstname' => array(
+      'new_name' => 'first_name',
+      'new_spec' => array(
+        'type' => 'varchar',
+        'length' => '64',
+        'not null' => FALSE
+      ),
+    ),
+    'middlename' => array(
+      'new_name' => 'middle_name',
+      'new_spec' => array(
+        'type' => 'varchar',
+        'length' => '64',
+        'not null' => FALSE
+      ),
+    ),
+    'lastname' => array(
+      'new_name' => 'last_name',
+      'new_spec' => array(
+        'type' => 'varchar',
+        'length' => '64',
+        'not null' => FALSE
+      ),
+    ),
+    'webform' => array(
+      'new_name' => 'contact_form',
+      'new_spec' => array(
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => FALSE
+      ),
+    ),
+    'congress_office' => array(
+      'new_name' => 'office',
+      'new_spec' => array(
+        'type' => 'varchar',
+        'length' => '256',
+        'not null' => FALSE
+      ),
+    ),
+    'youtube_url' => array(
+      'new_name' => 'youtube_id',
+      'new_spec' => array(
+        'description' => 'http://youtube.com/',
+        'type' => 'varchar',
+        'length' => '64',
+        'not null' => FALSE
+      )
+    ),
+    'senate_class' => array(
+      'new_name' => 'senate_class',
+      'new_spec' => array(
+        'description' => "For senators I, II, or III depending on the Senator's election term.",
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'size' => 'tiny',
+        'not null' => FALSE
+      ),
+    ),
+    'birthdate' => array(
+      'new_name' => 'birthday',
+      'new_spec' => array(
+        'description' => "YYYY-MM-DD formatted birth date.",
+        'type' => NULL,
+        'mysql_type' => 'DATE',
+        'pgsql_type' => 'timestamp without time zone',
+        'not null' => FALSE
+      ),
+    ),
+  );
+  foreach ($updates as $name => $spec) {
+    if (db_field_exists('cd_sunlight_legislators', $name)) {
+      db_change_field('cd_sunlight_legislators', $name, $spec['new_name'], $spec['new_spec']);
+    }
+  }
+
+  // Some fields have been removed from the API.
+  $deletions = array('email', 'eventful_id', 'congresspedia_url');
+  foreach ($deletions as $field) {
+    db_drop_field('cd_sunlight_legislators', $field);
+  }
+}
