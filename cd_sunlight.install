@@ -390,26 +390,25 @@ function cd_sunlight_update_6001() {
 }
 
 /**
- * Update our schema with the new fields that Sunlight provides: senate_class and birthday.
+ * Update our schema with the new fields that Sunlight provides: senate_class and birthdate.
  */
 function cd_sunlight_update_6002() {
   $senate_class = array(
     'description' => t("For senators I, II, or III depending on the Senator's election term."),
-    'type' => 'int',
-    'unsigned' => TRUE,
-    'size' => 'tiny',
-    'not null' => FALSE,
+    'type' => 'varchar',
+    'length' => '3',
+    'not null' => TRUE,
+    'default' => '',
   );
   db_add_field('cd_sunlight_legislators', 'senate_class', $senate_class);
-  $birthday = array(
+  $birthdate = array(
     'description' => t("YYYY-MM-DD formatted birth date."),
-    'type' => NULL,
     'mysql_type' => 'DATE',
     'pgsql_type' => 'timestamp without time zone',
     'not null' => FALSE,
   );
-  db_add_field('cd_sunlight_legislators', 'birthday', $birthday);
-  return t('Updated {cd_sunlight_legislators} with the new fields that Sunlight provides: senate_class and birthday.');
+  db_add_field('cd_sunlight_legislators', 'birthdate', $birthdate);
+  return t('Updated {cd_sunlight_legislators} with the new fields that Sunlight provides: senate_class and birthdate.');
 }
 
 /**
@@ -485,17 +484,17 @@ function cd_sunlight_update_6003() {
 }
 
 /**
- * Increase the length of the contact_form field.
+ * Increase the length of the webform field.
  */
 function cd_sunlight_update_6004() {
-  $contact_form = array(
+  $webform = array(
     'type' => 'varchar',
     'length' => '255',
     'not null' => FALSE,
   );
 
-  db_change_field('cd_sunlight_legislators', 'contact_form', 'contact_form', $contact_form);
-  return t('Increased length of contact_form field.');
+  db_change_field('cd_sunlight_legislators', 'webform', 'webform', $webform);
+  return t('Increased length of webform field.');
 }
 
 /**
