@@ -230,6 +230,40 @@ function cd_sunlight_schema() {
         'not null' => TRUE,
         'default' => ''
       ),
+      'term_start' => array(
+        'description' => t ( "The start date of the member’s current term." ),
+        'mysql_type' => 'DATE',
+        'pgsql_type' => 'timestamp without time zone',
+        'not null' => FALSE
+      ),
+      'term_end' => array(
+        'description' => t ( "The end date of the member’s current term." ),
+        'mysql_type' => 'DATE',
+        'pgsql_type' => 'timestamp without time zone',
+        'not null' => FALSE
+      ),
+      'state_name' => array(
+        'type' => 'varchar',
+        'length' => '64',
+        'not null' => FALSE
+      ),
+      'state_rank' => array(
+        'type' => 'varchar',
+        'length' => '64',
+        'not null' => FALSE
+      ),
+      'lis_id' => array(
+        'description' => 'An official ID used by some sources for Senators.',
+        'type' => 'varchar',
+        'length' => '16',
+        'not null' => FALSE,
+      ),
+      'thomas_id' => array(
+        'description' => 'An official ID used by THOMAS.gov and Congress.gov for members present in those systems.',
+        'type' => 'varchar',
+        'length' => '16',
+        'not null' => FALSE,
+      ),
     ),
     'primary key' => array('legislator_id'),
     'indexes' => array(
@@ -617,5 +651,46 @@ function cd_sunlight_update_7101() {
   $deletions = array('email', 'eventful_id', 'congresspedia_url');
   foreach ($deletions as $field) {
     db_drop_field('cd_sunlight_legislators', $field);
+  }
+
+  // Some fields have been added to the API.
+  $additions = array(
+    'term_start' => array(
+      'description' => t ( "The start date of the member’s current term." ),
+      'mysql_type' => 'DATE',
+      'pgsql_type' => 'timestamp without time zone',
+      'not null' => FALSE
+    ),
+    'term_end' => array(
+      'description' => t ( "The end date of the member’s current term." ),
+      'mysql_type' => 'DATE',
+      'pgsql_type' => 'timestamp without time zone',
+      'not null' => FALSE
+    ),
+    'state_name' => array(
+      'type' => 'varchar',
+      'length' => '64',
+      'not null' => FALSE,
+    ),
+    'state_rank' => array(
+      'type' => 'varchar',
+      'length' => '64',
+      'not null' => FALSE,
+    ),
+    'lis_id' => array(
+      'description' => 'An official ID used by some sources for Senators.',
+      'type' => 'varchar',
+      'length' => '16',
+      'not null' => FALSE,
+    ),
+    'thomas_id' => array(
+      'description' => 'An official ID used by THOMAS.gov and Congress.gov for members present in those systems.',
+      'type' => 'varchar',
+      'length' => '16',
+      'not null' => FALSE,
+    ),
+  );
+  foreach ($additions as $name => $spec) {
+    db_add_field('cd_sunlight_legislators', $name, $spec);
   }
 }
