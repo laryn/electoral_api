@@ -162,7 +162,7 @@ class cd_sunlight_handler_field_url_favicon_youtube extends cd_sunlight_handler_
   function render($values) {
     $this->favicon_url = 'http://www.youtube.com/favicon.ico';
     $this->human_readable = 'YouTube';
-    $this->url_path = 'http://www.youtube.com/user/' . $values->{$this->field_alias};
+    $this->url_path = $values->{$this->field_alias};
     $this->url_query = NULL;
     return parent::render($values);
   }
@@ -355,11 +355,11 @@ class cd_sunlight_handler_field_url_favicon_generic extends cd_sunlight_handler_
 }
 
 /**
- * Field handler to provide favicon for Contact Forms.
+ * Field handler to provide favicon for Webforms.
  *
  * @ingroup views_field_handlers
  */
-class cd_sunlight_handler_field_url_favicon_contact_form extends cd_sunlight_handler_field_url_favicon_generic {
+class cd_sunlight_handler_field_url_favicon_webform extends cd_sunlight_handler_field_url_favicon_generic {
 
   function render($values) {
     $this->human_readable = 'Contact form';
@@ -369,7 +369,7 @@ class cd_sunlight_handler_field_url_favicon_contact_form extends cd_sunlight_han
 }
 
 /**
- * Field handler to provide favicon for Contact Forms.
+ * Field handler to provide favicon for Webforms.
  *
  * @ingroup views_field_handlers
  */

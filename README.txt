@@ -30,12 +30,10 @@ This module
     /admin/settings/cd_sunlight
   Specifically the Sunlight API key.
 
-4)Run cron to fetch initial data.
-
-5)Visit the status report to see if the module is reporting any problems.
+4)Visit the status report to see if the module is reporting any problems.
     /admin/reports/status
 
-6)Proceed to the cd_civicrm/README.txt if you wish to integrate with CiviCRM.
+5)Proceed to the cd_civicrm/README.txt if you wish to integrate with CiviCRM.
 
 
 

@@ -434,7 +434,7 @@ function cd_sunlight_api_lookup_contact($contact) {
     $params['latitude'] = $latitude;
     $params['longitude'] = $longitude;
     $error_message = '';
-    $cd_data = cd_sunlight_api_lookup('districts/locate', $params, $error_message);
+    $cd_data = cd_sunlight_api_lookup('districts.getDistrictFromLatLong', $params, $error_message);
 
     // We have a special edge case where sometimes, if a point is on the edge of the country
     // (usually an ocean) it may lie outside of the polygon.  In these cases we will re-run the
@@ -458,7 +458,7 @@ function cd_sunlight_api_lookup_contact($contact) {
   }
   elseif (!empty($zip)) {
     $params['zip'] = $zip;
-    $cd_data = cd_sunlight_api_lookup('districts/locate', $params);
+    $cd_data = cd_sunlight_api_lookup('districts.getDistrictsFromZip', $params);
   }
   else {
     watchdog('cd_sunlight',
@@ -616,10 +616,7 @@ function _cd_sunlight_legislator_delete($params) {
   }
   $query = db_delete('cd_sunlight_legislators');
   foreach ($params as $field => &$value) {
-    // Do not alter the query based on pagination parameters.
-    if($field != 'per_page') {
-      $query->condition($field, $value);
-    }
+    $query->condition($field, $value);
   }
   $query->execute();
 }
@@ -634,8 +631,8 @@ function _cd_sunlight_legislator_delete($params) {
  *    'title' => 'Rep',
  *    'state' => 'NY',
  *    'district' => '17',
- *    'first_name' => 'Jane',
- *    'last_name' => 'Doe',
+ *    'firstname' => 'Jane',
+ *    'lastname' => 'Doe',
  *    ...
  *  );
  * @return boolean
@@ -665,22 +662,22 @@ function _cd_sunlight_legislator_save(array $legislator) {
  *        'title' => 'Rep',
  *        'state' => 'NY',
  *        'district' => '17',
- *        'first_name' => 'Jane',
- *        'last_name' => 'Doe',
+ *        'firstname' => 'Jane',
+ *        'lastname' => 'Doe',
  *        ...
  *      ),
  *      1 => array(
  *        'title' => 'Sen',
  *        'state' => 'NY',
- *        'first_name' => 'John',
- *        'last_name' => 'Doe',
+ *        'firstname' => 'John',
+ *        'lastname' => 'Doe',
  *        ...
  *      ),
  *    );
  */
 function _cd_sunlight_legislators_apilookup($params) {
   $error_message = '';
-  $result = cd_sunlight_api_lookup('legislators', $params, $error_message);
+  $result = cd_sunlight_api_lookup('legislators.getList', $params, $error_message);
   if ($result === FALSE) {
     watchdog('cd_sunlight', 'Error from Sunlight: @data.  For legislator lookup: @query',
       array('@data' => $error_message, '@query' => var_export($params, TRUE)), WATCHDOG_ERROR);
@@ -701,8 +698,7 @@ function _cd_sunlight_congress_update_all() {
 
   // Update all Senators.
   $params = array(
-    'in_office' => 'true',
-    'per_page' => 'all',
+    'in_office' => TRUE,
   );
   $query = drupal_http_build_query($params);
   $legislators = _cd_sunlight_legislators_apilookup($params);
@@ -791,7 +787,7 @@ function _cd_sunlight_state_list_with_non_voting_congresspersons() {
  * @return TRUE on success, else FALSE.
  */
 function _cd_sunlight_connection_test() {
-  $test_data = cd_sunlight_api_lookup('districts/locate', array('zip' => '94111'));
+  $test_data = cd_sunlight_api_lookup('districts.getDistrictsFromZip', array('zip' => '94111'));
   if ($test_data == FALSE || !isset($test_data[0]['state']) || $test_data[0]['state'] != 'CA') {
     return FALSE;
   }
