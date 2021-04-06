@@ -11,11 +11,17 @@
  */
 function cd_civicrm_uninstall() {
   // Remove variables.
+  // TODO This variable was probably removed in Backdrop without replacement.
   variable_del('cd_civicrm_cd');
+  // TODO This variable was probably removed in Backdrop without replacement.
   variable_del('cd_civicrm_cd_override');
+  // TODO This variable was probably removed in Backdrop without replacement.
   variable_del('cd_civicrm_custom_field_cd');
+  // TODO This variable was probably removed in Backdrop without replacement.
   variable_del('cd_civicrm_custom_field_cd_override');
+  // TODO This variable was probably removed in Backdrop without replacement.
   variable_del('cd_civicrm_geocoding_off');
+  // TODO This variable was probably removed in Backdrop without replacement.
   variable_del('cd_civicrm_crypt_iv');
 }
 
@@ -27,6 +33,7 @@ function cd_civicrm_requirements($phase) {
   if ($phase == 'runtime') {
 
     // Raise an error if we do not have prefixes for all the CiviCRM tables.
+    // TODO This variable was probably removed in Backdrop without replacement.
     $civicrm_tables = array(
       'civicrm_custom_field',
       'civicrm_contact',
@@ -43,14 +50,14 @@ function cd_civicrm_requirements($phase) {
     }
     $requirements['cd_civicrm_db'] = array(
       'title' => 'CiviCRM Congressional District',
-      'description' => t('In %settings you must have prefixes for the following tables: %tables. '.
+      'description' => t('In %settings you must have prefixes for the following tables: %tables. ' .
         'See the <a href="!url">CiviCRM Views Integration</a> for more info.',
         array(
-          '%tables' => implode(', ', $civicrm_tables),
-          '!url' => url('civicrm/admin/setting/uf'),
-          '%settings' => conf_path() . '/settings.php',
+        '%tables' => implode(', ', $civicrm_tables),
+        '!url' => url('civicrm/admin/setting/uf'),
+        '%settings' => conf_path() . '/settings.php',
       )),
-      'severity' => $error_tables ? REQUIREMENT_ERROR : REQUIREMENT_OK,
+      'severity' => $error_tables?REQUIREMENT_ERROR : REQUIREMENT_OK,
       'value' => t('settings.php DB Prefix'),
     );
     if ($error_tables) {
@@ -67,6 +74,8 @@ function cd_civicrm_requirements($phase) {
     }
 
     // Raise an error if a the module has not been setup.
+    // TODO This variable was probably removed in Backdrop without replacement.
+    // TODO This variable was probably removed in Backdrop without replacement.
     if (
       !variable_get('cd_civicrm_cd', '') ||
       !variable_get('cd_civicrm_cd_override', '')
@@ -81,10 +90,11 @@ function cd_civicrm_requirements($phase) {
     }
 
     // Report the number of records in the batch geocoding queue.
+    // TODO This variable was probably removed in Backdrop without replacement.
     if (variable_get('cd_civicrm_geocoding_off', FALSE)) {
-      // We don't want this query to take forever on large installs, so we make it very rough.  
-      // In reality CiviCRM will attempt to geocode only if there is a country_id and both 
-      // geocodes are blank. 
+      // We don't want this query to take forever on large installs, so we make it very rough.
+      // In reality CiviCRM will attempt to geocode only if there is a country_id and both
+      // geocodes are blank.
       $query = db_select('civicrm_address')
         ->where('geo_code_1 is null OR geo_code_1 = 0')
         ->condition('country_id', NULL, 'IS NOT NULL');

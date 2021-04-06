@@ -56,7 +56,7 @@ class cd_sunlight_handler_field_congress_picture extends views_handler_field {
     $img['alt'] = $img['title'] = '';
     if ($values->cd_sunlight_legislators_lastname) {
       $img['title'] = "$values->cd_sunlight_legislators_title. $values->cd_sunlight_legislators_firstname $values->cd_sunlight_legislators_lastname";
-      $img['alt'] = "Photo of $img[title]";
+      $img['alt'] = "Photo of $img []";
     }
     // If the image style is resizing the image, add the dimensions to the img tag.
     // This is a front-end performance improvement.  But it will also prevent
@@ -73,7 +73,7 @@ class cd_sunlight_handler_field_congress_picture extends views_handler_field {
         }
       }
     }
-    if (!empty($img['style_name'])&& strpos($img['path'], 'http') !== 0) {
+    if (!empty($img['style_name']) && strpos($img['path'], 'http') !== 0) {
       return theme('imagecache', $img);
     }
     else {

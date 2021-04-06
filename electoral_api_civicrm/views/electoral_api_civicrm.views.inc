@@ -79,7 +79,7 @@ function cd_civicrm_views_default_views_alter(&$views) {
 function cd_civicrm_views_handlers() {
   return array(
     'info' => array(
-      'path' => drupal_get_path('module', 'cd_civicrm') . '/views',
+      'path' => backdrop_get_path('module', 'cd_civicrm') . '/views',
     ),
     'handlers' => array(
       'cd_civicrm_handler_filter_state_current_user' => array(

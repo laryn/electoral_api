@@ -62,8 +62,13 @@ class cd_sunlight_handler_field_url_favicon extends views_handler_field_url {
 
       // Resolve favicons.
       if ($local_url = _cd_sunlight_remote_image_fetch($this->favicon_url)) {
-        $value = theme('image', array('path' => $local_url, 'width' => '16', 'height' => '16',
-            'alt' => '', 'title' => $this->human_readable));
+        $value = theme('image', array(
+          'path' => $local_url,
+          'width' => '16',
+          'height' => '16',
+          'alt' => '',
+          'title' => $this->human_readable,
+        ));
       }
 
     }
@@ -113,7 +118,7 @@ class cd_sunlight_handler_field_url_favicon_facebook extends cd_sunlight_handler
       '#options' => array(
         'profile' => 'Profile page',
         'graph' => 'Facebook graph endpoint',
-      )
+      ),
     );
   }
 
@@ -125,23 +130,23 @@ class cd_sunlight_handler_field_url_favicon_facebook extends cd_sunlight_handler
 
       switch ($this->options['facebook_url']) {
         case 'graph':
-          $this->url_path = 'http://graph.facebook.com/'. $facebook_id;
+          $this->url_path = 'http://graph.facebook.com/' . $facebook_id;
           break;
         default:
           if (is_numeric($facebook_id)) {
             // In this case we _should_ be fetching the real URL using the FB graph endpoint.
             // It will return something like the following:
-            //  http://www.facebook.com/pages/Congressman-Robert-Brady/118845109487
+//  http://www.facebook.com/pages/Congressman-Robert-Brady/118845109487
             // But that's onerous and a simple workaround exists.  Any of the following
             // currently works:
-            //  http://www.facebook.com/pages/Robert-Brady/118845109487
-            //  http://www.facebook.com/pages/brady/118845109487
-            //  http://www.facebook.com/pages/foo/118845109487
+//  http://www.facebook.com/pages/Robert-Brady/118845109487
+//  http://www.facebook.com/pages/brady/118845109487
+//  http://www.facebook.com/pages/foo/118845109487
             // Though FB could change that at any time.
-            $this->url_path = 'http://www.facebook.com/pages/page/'. $facebook_id;
+            $this->url_path = 'http://www.facebook.com/pages/page/' . $facebook_id;
           }
           else {
-            $this->url_path = 'http://www.facebook.com/'. $facebook_id;
+            $this->url_path = 'http://www.facebook.com/' . $facebook_id;
           }
           break;
       }
@@ -310,7 +315,7 @@ class cd_sunlight_handler_field_url_favicon_progressive_punch extends cd_sunligh
     elseif ($senate_class = $values->{$this->aliases['senate_class']}) {
       $query['member'] = $values->{$this->aliases['state']} . $senate_class;
     }
-    $this->url_query = drupal_http_build_query($query);
+    $this->url_query = backdrop_http_build_query($query);
 
     // parent::render checks if any data exists in the field.  We circumvent this check:
     $values->{$this->field_alias} = TRUE;

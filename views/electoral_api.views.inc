@@ -297,7 +297,7 @@ function cd_sunlight_views_data() {
 function cd_sunlight_views_handlers() {
   return array(
     'info' => array(
-      'path' => drupal_get_path('module', 'cd_sunlight') . '/views',
+      'path' => backdrop_get_path('module', 'cd_sunlight') . '/views',
     ),
     'handlers' => array(
       'cd_sunlight_handler_field_congress_picture' => array(
@@ -315,7 +315,6 @@ function cd_sunlight_views_handlers() {
       'cd_sunlight_handler_field_party' => array(
         'parent' => 'views_handler_field',
       ),
-
       // URLs.
       'cd_sunlight_handler_field_url_favicon' => array(
         'parent' => 'views_handler_field_url',
@@ -369,7 +368,6 @@ function cd_sunlight_views_handlers() {
         'parent' => 'cd_sunlight_handler_field_url_favicon',
         'file' => 'cd_sunlight_handler_field_url.inc',
       ),
-
       // Filters.
       'cd_sunlight_handler_filter_title' => array(
         'parent' => 'views_handler_filter_in_operator',
@@ -386,12 +384,10 @@ function cd_sunlight_views_handlers() {
       'cd_sunlight_handler_filter_district' => array(
         'parent' => 'views_handler_filter_in_operator',
       ),
-
       // Arguments.
       'cd_sunlight_handler_argument_district' => array(
         'parent' => 'views_handler_argument_numeric',
       ),
-
     ),
   );
 }

@@ -36,14 +36,14 @@ function cd_sunlight_menu() {
   $items = array();
   $items['admin/config/services/cd_sunlight'] = array(
     'title' => 'Sunlight congressional district',
-    'page callback' => 'drupal_get_form',
+    'page callback' => 'backdrop_get_form',
     'page arguments' => array('cd_sunlight_settings_form'),
     'access arguments' => array('administer site configuration'),
     'file' => 'cd_sunlight.admin.inc',
   );
   $items['admin/config/services/cd_sunlight/settings'] = array(
     'title' => 'Settings',
-    'page callback' => 'drupal_get_form',
+    'page callback' => 'backdrop_get_form',
     'page arguments' => array('cd_sunlight_settings_form'),
     'access arguments' => array('administer site configuration'),
     'type' => MENU_DEFAULT_LOCAL_TASK,
@@ -52,7 +52,7 @@ function cd_sunlight_menu() {
   );
   $items['admin/config/services/cd_sunlight/batch'] = array(
     'title' => 'Batch process',
-    'page callback' => 'drupal_get_form',
+    'page callback' => 'backdrop_get_form',
     'page arguments' => array('cd_sunlight_batch_confirm'),
     'access arguments' => array('administer site configuration'),
     'type' => MENU_LOCAL_TASK,
@@ -89,7 +89,7 @@ function cd_sunlight_menu() {
     }
     $items['congress-search'] = array(
       'title' => 'Search for members of Congress',
-      'page callback' => 'drupal_get_form',
+      'page callback' => 'backdrop_get_form',
       'page arguments' => array('cd_sunlight_search_form'),
       'access arguments' => array('search congressional districts by zip'),
       'type' => MENU_SUGGESTED_ITEM,
@@ -105,7 +105,7 @@ function cd_sunlight_menu() {
 function cd_sunlight_block_info() {
   $blocks['congress_search'] = array(
     'info' => t('Congress search by zip form'),
-    'cache' => DRUPAL_CACHE_GLOBAL,
+    'cache' => BACKDROP_CACHE_GLOBAL,
     'pages' => 'congress-search',
   );
   return $blocks;
@@ -119,7 +119,7 @@ function cd_sunlight_block_view($delta) {
     module_load_include('pages.inc', 'cd_sunlight');
     $block = array(
       'subject' => t('Search for members of Congress'),
-      'content' => drupal_get_form('cd_sunlight_search_form'),
+      'content' => backdrop_get_form('cd_sunlight_search_form'),
     );
     return $block;
   }
@@ -149,6 +149,7 @@ function cd_sunlight_cron() {
   // Only run under low server load.
   if (function_exists('sys_getloadavg')) {
     list($load) = sys_getloadavg();
+    // TODO This variable was probably removed in Backdrop without replacement.
     $limit = variable_get('cd_sunlight_cron_load_limit', 6);
     if (is_numeric($load) && !empty($limit) && $load > $limit) {
       watchdog('cd_sunlight', 'System load is higher than @limit, cd_sunlight_cron will not be run.',
@@ -168,6 +169,7 @@ function cd_sunlight_cron() {
   _cd_sunlight_mysql_wait_timeout();
 
   // Refresh all info for stored CDs once every 24hrs.
+  // TODO This variable was probably removed in Backdrop without replacement.
   $last_run = variable_get('cd_sunlight_last_process_new_regions', 0);
   $time = $_SERVER['REQUEST_TIME'];
   $day_ago = ($time - 60 * 60 * 24);
@@ -178,6 +180,7 @@ function cd_sunlight_cron() {
 
   // Cleanup old values from the cron table.
   // @see dblog_cron()
+  // TODO This variable was removed in Backdrop without replacement.
   $row_limit = variable_get('dblog_row_limit', 1000);
   if ($row_limit > 0) {
     $min_row = db_select('cd_sunlight_cron', 'csc')
@@ -204,7 +207,7 @@ function cd_sunlight_cron() {
 function cd_sunlight_views_api() {
   return array(
     'api' => '2.0',
-    'path' => drupal_get_path('module', 'cd_sunlight') . '/views',
+    'path' => backdrop_get_path('module', 'cd_sunlight') . '/views',
   );
 }
 
@@ -228,6 +231,7 @@ function cd_sunlight_contact_enqueue($storage_system, $contact_id) {
     ->condition('processed', FALSE);
   $query->addExpression('1');
   if ($query->execute()->fetchField()) {
+    // TODO This variable was probably removed in Backdrop without replacement.
     if (variable_get('cd_sunlight_debug', FALSE)) {
       watchdog('cd_sunlight', 'Contact @contact_id re-queued before being processed.',
         array('@contact_id' => $contact_id), WATCHDOG_DEBUG);
@@ -236,15 +240,16 @@ function cd_sunlight_contact_enqueue($storage_system, $contact_id) {
   }
 
   // Queue the contact.
+  // TODO This variable was probably removed in Backdrop without replacement.
   db_insert('cd_sunlight_cron')
     ->fields(array(
-      'storage_system' => $storage_system,
-      'contact_id' => $contact_id,
-      'request_uri' => request_uri(),
-      'backtrace' => variable_get('cd_sunlight_debug', FALSE) ? _cd_sunlight_backtrace() : '',
-      'insert_time' => REQUEST_TIME,
-      'processed' => 0,
-    ))
+    'storage_system' => $storage_system,
+    'contact_id' => $contact_id,
+    'request_uri' => request_uri(),
+    'backtrace' => variable_get('cd_sunlight_debug', FALSE)?_cd_sunlight_backtrace() : '',
+    'insert_time' => REQUEST_TIME,
+    'processed' => 0,
+  ))
     ->execute();
 }
 
@@ -287,7 +292,7 @@ function cd_sunlight_cd_parse_state($cd) {
   if ($cd == 'not found') {
     return '';
   }
-  return drupal_substr($cd, 0, 2);
+  return backdrop_substr($cd, 0, 2);
 }
 
 /**
@@ -303,7 +308,7 @@ function cd_sunlight_cd_parse_district($cd) {
     return '';
   }
   // Note that we can't use substr($cd, -2) because the district might only be one digit.
-  return drupal_substr($cd, 2);
+  return backdrop_substr($cd, 2);
 }
 
 /**
@@ -314,7 +319,7 @@ function cd_sunlight_cd_parse_district($cd) {
  * @return the image path.  Local if we could save it, otherwise remote (http://...).
  */
 function cd_sunlight_bioguide_image_url($bioguide_id) {
-  $letter = drupal_substr($bioguide_id, 0, 1);
+  $letter = backdrop_substr($bioguide_id, 0, 1);
   $image_url = "http://bioguide.congress.gov/bioguide/photo/$letter/$bioguide_id.jpg";
   if ($local_url = _cd_sunlight_remote_image_fetch($image_url)) {
     return $local_url;
@@ -349,12 +354,15 @@ function cd_sunlight_api_lookup($method, $params, &$error_message = '') {
   }
 
   // Call the URL and check for errors.
+  // TODO This variable was probably removed in Backdrop without replacement.
   $params['apikey'] = variable_get('cd_sunlight_api_key', '');
-  $url = url('https://congress.api.sunlightfoundation.com/'. $method, array('query' => $params));
-  $response = drupal_http_request($url);
+  $url = url('https://congress.api.sunlightfoundation.com/' . $method, array('query' => $params));
+  $response = backdrop_http_request($url);
 
   // Increment our counter.
+  // TODO This variable was probably removed in Backdrop without replacement.
   $total_lookups = variable_get('cd_sunlight_total_lookups', 0);
+  // TODO This variable was probably removed in Backdrop without replacement.
   variable_set('cd_sunlight_total_lookups', ++$total_lookups);
 
   if ($response->code == 400) {
@@ -478,8 +486,8 @@ function cd_sunlight_api_lookup_contact($contact) {
   }
 
   // @todo: There may be more than one CD per zip.
-  //        Right now we are just going to take the first one.  We might consider doing something
-  //        else later.
+//        Right now we are just going to take the first one.  We might consider doing something
+//        else later.
   $cd_data = reset($cd_data);
 
   // Sunlight is inconsistent with its naming.  This is the only place that it uses the term
@@ -574,8 +582,8 @@ function _cd_sunlight_validate_cd(&$cd) {
  *  TRUE on success (and $state may be manipulated to fit our format) else FALSE.
  */
 function _cd_sunlight_validate_state(&$state) {
-  $state = drupal_strtoupper($state);
-  return ctype_alpha($state) && drupal_strlen($state) === 2;
+  $state = backdrop_strtoupper($state);
+  return ctype_alpha($state) && backdrop_strlen($state) === 2;
 }
 
 /**
@@ -594,7 +602,7 @@ function _cd_sunlight_validate_district($state, &$district) {
     return TRUE;
   }
   $district = ltrim($district, '0');
-  $district_len = drupal_strlen($district);
+  $district_len = backdrop_strlen($district);
   return ctype_digit((string) $district) && ($district_len === 2 || $district_len === 1);
 }
 
@@ -639,7 +647,7 @@ function _cd_sunlight_legislator_delete($params) {
  *  TRUE on success, else FALSE.
  */
 function _cd_sunlight_legislator_save(array $legislator) {
-  return (bool) drupal_write_record('cd_sunlight_legislators', $legislator);
+  return (bool) backdrop_write_record('cd_sunlight_legislators', $legislator);
 }
 
 /**
@@ -700,7 +708,7 @@ function _cd_sunlight_congress_update_all() {
   $params = array(
     'in_office' => TRUE,
   );
-  $query = drupal_http_build_query($params);
+  $query = backdrop_http_build_query($params);
   $legislators = _cd_sunlight_legislators_apilookup($params);
   if ($legislators === FALSE) {
     watchdog('cd_sunlight', 'Could not lookup legislators for %query',
@@ -736,6 +744,7 @@ function _cd_sunlight_congress_update_all() {
   else {
     watchdog('cd_sunlight', "Updated data for @count in office members of Congress.",
       array('@count' => count($legislators)), WATCHDOG_INFO);
+    // TODO This variable was probably removed in Backdrop without replacement.
     variable_set('cd_sunlight_last_process_new_regions', $_SERVER['REQUEST_TIME']);
     return TRUE;
   }
@@ -749,9 +758,24 @@ function _cd_sunlight_congress_update_all() {
  */
 function _cd_sunlight_state_list_at_large() {
   static $states = array(
-    'AK', 'DE', 'MT', 'ND', 'SD', 'VT', 'WY',
-    'AA', 'AE', 'AP', 'UM', 'XX',       // _cd_sunlight_state_list_with_no_congresspersons()
-    'AS', 'DC', 'GU', 'MP', 'VI', 'PR', // _cd_sunlight_state_list_with_non_voting_congresspersons()
+    'AK',
+    'DE',
+    'MT',
+    'ND',
+    'SD',
+    'VT',
+    'WY',
+    'AA',
+    'AE',
+    'AP',
+    'UM',
+    'XX', // _cd_sunlight_state_list_with_no_congresspersons()
+    'AS',
+    'DC',
+    'GU',
+    'MP',
+    'VI',
+    'PR', // _cd_sunlight_state_list_with_non_voting_congresspersons()
   );
   return $states;
 }
@@ -841,7 +865,7 @@ function _cd_sunlight_backtrace() {
       }
       $arg_string = '(' . implode(', ', $arg_scalars) . ')';
     }
-    $info[] = @"$trace[file]($trace[line]): $trace[function]$arg_string";
+    $info[] = @"$trace []($trace []): $trace []$arg_string";
   }
   return var_export($info, TRUE);
 }
@@ -858,7 +882,7 @@ function _cd_sunlight_backtrace() {
 function _cd_sunlight_mysql_wait_timeout($timeout = 900) {
   global $db_url;
 
-  // Set in Drupal.
+  // Set in Backdrop.
   if (is_array($db_url)) {
     $old_db = db_set_active();
     foreach ($db_url as $db_name => $connection_string) {
@@ -876,7 +900,7 @@ function _cd_sunlight_mysql_wait_timeout($timeout = 900) {
   // Set in CiviCRM.
   if (function_exists('civicrm_initialize')) {
     civicrm_initialize();
-    require_once DRUPAL_ROOT . '/' . drupal_get_path('module', 'civicrm') . '/../CRM/Core/DAO.php';
+    require_once BACKDROP_ROOT . '/' . backdrop_get_path('module', 'civicrm') . '/../CRM/Core/DAO.php';
     $params = array(1 => array($timeout, 'Integer'));
     CRM_Core_DAO::executeQuery('SET SESSION wait_timeout = %1', $params);
   }
@@ -889,7 +913,7 @@ function _cd_sunlight_mysql_wait_timeout($timeout = 900) {
  * @param string $url
  *
  * @return string
- *  the path of the local file (relative to the Drupal files directory). Or FALSE on error.
+ *  the path of the local file (relative to the Backdrop files directory). Or FALSE on error.
  */
 function _cd_sunlight_remote_image_fetch($url) {
   static $images = array();
@@ -938,7 +962,7 @@ function _cd_sunlight_remote_image_fetch($url) {
 function _cd_sunlight_is_url_an_image($url) {
 
   // Shorten the default timeout - we don't want the page to hang because we're waiting on favicons.
-  $response = drupal_http_request($url, array('max_redirects' => 2, 'timeout' => 4));
+  $response = backdrop_http_request($url, array('max_redirects' => 2, 'timeout' => 4));
 
   // Is it a valid response?
   if ($response->code != 200 && $response->code != 301 || empty($response->data)) {
@@ -948,7 +972,7 @@ function _cd_sunlight_is_url_an_image($url) {
   // Normalize case of headers.
   $headers = array();
   foreach ($response->headers as $header => $header_value) {
-    $headers[drupal_strtolower($header)] = drupal_strtolower($header_value);
+    $headers[backdrop_strtolower($header)] = backdrop_strtolower($header_value);
   }
 
   // Is it an image?
@@ -981,4 +1005,36 @@ function _cd_sunlight_save_data_locally($data, $filename) {
     return FALSE;
   }
   return file_unmanaged_save_data($data, $directory . '/' . $filename, FILE_EXISTS_REPLACE);
+}
+
+/**
+ * Implements hook_autoload_info().
+ */
+function electoral_api_autoload_info() {
+  return array(
+    'cd_sunlight_handler_argument_district' => 'views/electoral_api_handler_argument_district.inc',
+    'cd_sunlight_handler_field_chamber' => 'views/electoral_api_handler_field_chamber.inc',
+    'cd_sunlight_handler_field_congress_picture' => 'views/electoral_api_handler_field_congress_picture.inc',
+    'cd_sunlight_handler_field_nickname' => 'views/electoral_api_handler_field_nickname.inc',
+    'cd_sunlight_handler_field_party' => 'views/electoral_api_handler_field_party.inc',
+    'cd_sunlight_handler_field_title' => 'views/electoral_api_handler_field_title.inc',
+    'cd_sunlight_handler_field_url_favicon' => 'views/electoral_api_handler_field_url.inc',
+    'cd_sunlight_handler_field_url_favicon_facebook' => 'views/electoral_api_handler_field_url.inc',
+    'cd_sunlight_handler_field_url_favicon_youtube' => 'views/electoral_api_handler_field_url.inc',
+    'cd_sunlight_handler_field_url_favicon_bioguide' => 'views/electoral_api_handler_field_url.inc',
+    'cd_sunlight_handler_field_url_favicon_votesmart' => 'views/electoral_api_handler_field_url.inc',
+    'cd_sunlight_handler_field_url_favicon_govtrack' => 'views/electoral_api_handler_field_url.inc',
+    'cd_sunlight_handler_field_url_favicon_opensecrets' => 'views/electoral_api_handler_field_url.inc',
+    'cd_sunlight_handler_field_url_favicon_congresspedia' => 'views/electoral_api_handler_field_url.inc',
+    'cd_sunlight_handler_field_url_favicon_twitter' => 'views/electoral_api_handler_field_url.inc',
+    'cd_sunlight_handler_field_url_favicon_progressive_punch' => 'views/electoral_api_handler_field_url.inc',
+    'cd_sunlight_handler_field_url_favicon_generic' => 'views/electoral_api_handler_field_url.inc',
+    'cd_sunlight_handler_field_url_favicon_webform' => 'views/electoral_api_handler_field_url.inc',
+    'cd_sunlight_handler_field_url_favicon_website' => 'views/electoral_api_handler_field_url.inc',
+    'cd_sunlight_handler_filter_district' => 'views/electoral_api_handler_filter_district.inc',
+    'cd_sunlight_handler_filter_gender' => 'views/electoral_api_handler_filter_gender.inc',
+    'cd_sunlight_handler_filter_party' => 'views/electoral_api_handler_filter_party.inc',
+    'cd_sunlight_handler_filter_state' => 'views/electoral_api_handler_filter_state.inc',
+    'cd_sunlight_handler_filter_title' => 'views/electoral_api_handler_filter_title.inc',
+  );
 }

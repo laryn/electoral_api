@@ -45,7 +45,7 @@ function cd_sunlight_search_form($form, &$form_state, $zip = NULL, $state = NULL
       '%zip' => $zip,
       '%cd' => $state . $district,
     );
-    $results = '<h3>' . ($zip ? t('%zip is in %cd', $t_arguments) : t('%cd', $t_arguments)) . '</h3>' .
+    $results = '<h3>' . ($zip?t('%zip is in %cd', $t_arguments) : t('%cd', $t_arguments)) . '</h3>' .
       views_embed_view('congress', 'default', $state, $district);
 
     // The more link is retaining the arguments.  Get rid of them.

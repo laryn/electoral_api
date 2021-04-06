@@ -1,0 +1,6 @@
+[cdCiviCRMWebTestCase]
+name = CiviCRM Congressional Districts tests
+description = Test queuing, dequeing, and data fetching.
+group = CiviCRM Congressional Districts
+file = tests/electoral_api_civicrm.test
+

@@ -34,6 +34,7 @@ function cd_civicrm_settings_form() {
       '!url_setup' => 'http://wiki.civicrm.org/confluence/display/CRMDOC/Command-line+Script+Configuration',
     )),
   );
+  // TODO This variable was probably removed in Backdrop without replacement.
   $form['geocode']['cd_civicrm_geocoding_off'] = array(
     '#type' => 'checkbox',
     '#title' => t('Run CiviCRM geocoding only during cron and some CiviCRM profiles'),
@@ -54,9 +55,10 @@ function cd_civicrm_settings_form() {
       '!url' => 'http://www.php.net/manual/en/book.mcrypt.php',
     )),
   );
+  // TODO This variable was probably removed in Backdrop without replacement.
   $form['geocode']['cd_civicrm_geocode_username'] = array(
     '#type' => 'textfield',
-    '#title' => t('Name of the Drupal user for running CiviCRM geocode script'),
+    '#title' => t('Name of the Backdrop user for running CiviCRM geocode script'),
     '#disabled' => !_cd_civicrm_crypt_enabled(),
     '#default_value' => _cd_civicrm_crypt_decrypt(variable_get('cd_civicrm_geocode_username', '')),
     '#description' => t('An administrator account should be avoided for security reasons.'),
@@ -64,7 +66,7 @@ function cd_civicrm_settings_form() {
   );
   $form['geocode']['cd_civicrm_geocode_password'] = array(
     '#type' => 'item',
-    '#title' => t('Password of the Drupal user for running CiviCRM geocode script'),
+    '#title' => t('Password of the Backdrop user for running CiviCRM geocode script'),
     '#markup' => defined('CD_CIVICRM_GEOCODE_PASSWORD') && CD_CIVICRM_GEOCODE_PASSWORD ? 'Is defined' : 'Is not defined',
     '#description' => t('Define the password in a constant called !const in settings.php',
       array('!const' => 'CD_CIVICRM_GEOCODE_PASSWORD')),
@@ -76,6 +78,7 @@ function cd_civicrm_settings_form() {
       'below'),
     '#title' => 'HTTP Authentication',
   );
+  // TODO This variable was probably removed in Backdrop without replacement.
   $form['geocode']['http_auth']['cd_civicrm_http_auth_user'] = array(
     '#type' => 'textfield',
     '#title' => 'User',
@@ -83,6 +86,7 @@ function cd_civicrm_settings_form() {
     '#default_value' => _cd_civicrm_crypt_decrypt(variable_get('cd_civicrm_http_auth_user', '')),
     '#attributes' => array('autocomplete' => 'off'),
   );
+  // TODO This variable was probably removed in Backdrop without replacement.
   $form['geocode']['http_auth']['cd_civicrm_http_auth_password'] = array(
     '#type' => 'textfield',
     '#title' => 'Password',
@@ -97,6 +101,7 @@ function cd_civicrm_settings_form() {
       '!url' => url('admin/reports/dblog'),
     )),
   );
+  // TODO This variable was probably removed in Backdrop without replacement.
   $form['geocode']['test']['test'] = array(
     '#type' => 'submit',
     '#value' => t('Test batch geocoding'),
@@ -129,7 +134,7 @@ function cd_civicrm_settings_form_validate($form, &$form_state) {
       $message = 'The geocoding user exists';
       if (user_access('access all custom data', $account)) {
         $message .= ' with correct permissions';
-        drupal_set_message($message);
+        backdrop_set_message($message);
         $user_valid = TRUE;
       }
       else {
@@ -173,7 +178,7 @@ function cd_civicrm_settings_fields_form($form, &$form_state) {
   // Get options.
   $fields = array();
   if (!db_table_exists('civicrm_custom_field')) {
-    drupal_set_message(t('Table civicrm_custom_field does not exist. You must configure <a href="!url">table prefixes for CiviCRM tables</a> first.', array('!url' => url('admin/reports/status'))), 'error');
+    backdrop_set_message(t('Table civicrm_custom_field does not exist. You must configure <a href="!url">table prefixes for CiviCRM tables</a> first.', array('!url' => url('admin/reports/status'))), 'error');
   }
   else {
     // TODO: Some day we need to use the CiviCRM internal API.
@@ -197,6 +202,7 @@ function cd_civicrm_settings_fields_form($form, &$form_state) {
       array('!url' => url('civicrm/admin/custom/group'))) . '</p>',
   );
 
+  // TODO This variable was probably removed in Backdrop without replacement.
   $field_cd_civicrm_cd = variable_get('cd_civicrm_cd', '');
   $field_cd_civicrm_cd = explode('_', $field_cd_civicrm_cd);
   $field_cd_civicrm_cd = array_pop($field_cd_civicrm_cd);
@@ -213,6 +219,7 @@ function cd_civicrm_settings_fields_form($form, &$form_state) {
     '#required' => TRUE,
   );
 
+  // TODO This variable was probably removed in Backdrop without replacement.
   $field_cd_civicrm_cd_override = variable_get('cd_civicrm_cd_override', '');
   $field_cd_civicrm_cd_override = explode('_', $field_cd_civicrm_cd_override);
   $field_cd_civicrm_cd_override = array_pop($field_cd_civicrm_cd_override);
@@ -235,8 +242,8 @@ function cd_civicrm_settings_fields_form($form, &$form_state) {
 }
 
 /**
- * Validator for field binding form. 
- * 
+ * Validator for field binding form.
+ *
  * @see cd_civicrm_settings_fields_form()
  * @see cd_civicrm_settings_fields_form_submit()
  *
@@ -287,16 +294,21 @@ function cd_civicrm_settings_fields_form_submit($form, &$form_state) {
     ->fetchObject();
 
   // Save the variables.
+  // TODO This variable was probably removed in Backdrop without replacement.
   variable_set('cd_civicrm_custom_table',
     $field_cd_civicrm_cd->table_name);
+  // TODO This variable was probably removed in Backdrop without replacement.
   variable_set('cd_civicrm_cd',
     'custom_' . $field_cd_civicrm_cd->id);
+  // TODO This variable was probably removed in Backdrop without replacement.
   variable_set('cd_civicrm_cd_override',
     'custom_' . $field_cd_civicrm_cd_override->id);
+  // TODO This variable was probably removed in Backdrop without replacement.
   variable_set('cd_civicrm_custom_field_cd',
     $field_cd_civicrm_cd->column_name);
+  // TODO This variable was probably removed in Backdrop without replacement.
   variable_set('cd_civicrm_custom_field_cd_override',
     $field_cd_civicrm_cd_override->column_name);
 
-  drupal_set_message(t('The fields have been saved.'));
+  backdrop_set_message(t('The fields have been saved.'));
 }

@@ -14,6 +14,8 @@
  */
 function cd_sunlight_settings_form($form, &$form_state) {
 
+  // TODO This variable was probably removed in Backdrop without replacement.
+  $form['#config'] = 'electoral_api.settings';
   $form['cd_sunlight_api_key'] = array(
     '#type' => 'textfield',
     '#title' => t('Sunlight API Key'),
@@ -22,6 +24,7 @@ function cd_sunlight_settings_form($form, &$form_state) {
     '#default_value' => variable_get('cd_sunlight_api_key', ''),
     '#required' => TRUE,
   );
+  // TODO This variable was probably removed in Backdrop without replacement.
   $form['cd_sunlight_cron_contact_limit'] = array(
     '#type' => 'textfield',
     '#title' => t('Cron contact limit'),
@@ -29,6 +32,7 @@ function cd_sunlight_settings_form($form, &$form_state) {
     '#default_value' => variable_get('cd_sunlight_cron_contact_limit', 200),
     '#required' => TRUE,
   );
+  // TODO This variable was probably removed in Backdrop without replacement.
   $form['cd_sunlight_debug'] = array(
     '#type' => 'checkbox',
     '#title' => t('Debugging'),
@@ -36,6 +40,7 @@ function cd_sunlight_settings_form($form, &$form_state) {
     '#default_value' => variable_get('cd_sunlight_debug', FALSE),
   );
   if (function_exists('sys_getloadavg')) {
+    // TODO This variable was probably removed in Backdrop without replacement.
     $form['cd_sunlight_cron_load_limit'] = array(
       '#type' => 'textfield',
       '#title' => t('Cron server load limit'),
@@ -59,7 +64,9 @@ function cd_sunlight_settings_form($form, &$form_state) {
 function cd_sunlight_settings_form_validate($form, &$form_state) {
 
   // Temporarily replace the existing API key.
+  // TODO This variable was probably removed in Backdrop without replacement.
   $key_existing = variable_get('cd_sunlight_api_key', '');
+  // TODO This variable was probably removed in Backdrop without replacement.
   variable_set('cd_sunlight_api_key', $form_state['values']['cd_sunlight_api_key']);
 
   // Test the new one.
@@ -69,10 +76,11 @@ function cd_sunlight_settings_form_validate($form, &$form_state) {
       'See watchdog for more detailed information.'));
   }
   else {
-    drupal_set_message(t('The Sunlight API key works.'));
+    backdrop_set_message(t('The Sunlight API key works.'));
   }
 
   // Revert.
+  // TODO This variable was probably removed in Backdrop without replacement.
   variable_set('cd_sunlight_api_key', $key_existing);
 
   // Are the contact limit and load limit numeric?
@@ -119,7 +127,7 @@ function cd_sunlight_batch_confirm_submit($form, &$form_state) {
     'title' => t('Processing contacts.'),
     'init_message' => t('Starting.'),
     'error_message' => t('An error occurred and some contacts have not been processed.'),
-    'file' => drupal_get_path('module', 'cd_sunlight') . '/cd_sunlight.admin.inc',
+    'file' => backdrop_get_path('module', 'cd_sunlight') . '/cd_sunlight.admin.inc',
     'operations' => array(),
   );
   if (function_exists('_cd_civicrm_batch')) {
@@ -145,7 +153,7 @@ function cd_sunlight_batch_finished($success, $results, $operations) {
   else {
     $message = t('Finished with an error.');
   }
-  drupal_set_message($message);
+  backdrop_set_message($message);
 }
 
 /**
@@ -176,6 +184,7 @@ function cd_sunlight_log() {
       'field' => 'request_uri',
     ),
   );
+  // TODO This variable was probably removed in Backdrop without replacement.
   if (variable_get('cd_sunlight_debug', FALSE)) {
     $header[] = t('Backtrace');
   }
@@ -206,6 +215,7 @@ function cd_sunlight_log() {
       $record->processed,
       check_plain($record->request_uri),
     );
+    // TODO This variable was probably removed in Backdrop without replacement.
     if (variable_get('cd_sunlight_debug', FALSE)) {
       $row[] = '<pre>' . check_plain($record->backtrace) . '</pre>';
     }
@@ -309,8 +319,11 @@ function cd_sunlight_log_summary() {
       );
       $rows[] = $row;
     }
-    $output .= theme('table', array('header' => $header, 'rows' => $rows,
-      'caption' => t('Most active @seconds second period', array('@seconds' => number_format('1' . $seconds)))));
+    $output .= theme('table', array(
+      'header' => $header,
+      'rows' => $rows,
+      'caption' => t('Most active @seconds second period', array('@seconds' => number_format('1' . $seconds))),
+    ));
   }
 
   return $output;

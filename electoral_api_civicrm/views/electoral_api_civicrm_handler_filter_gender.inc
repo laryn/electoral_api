@@ -11,7 +11,7 @@ class cd_civicrm_handler_filter_gender extends views_handler_filter_in_operator 
     require_once 'CRM/Core/PseudoConstant.php';
     $genders = CRM_Core_PseudoConstant::gender();
     foreach ($genders as $gender) {
-      $this->value_options[drupal_substr($gender, 0, 1)] = $gender;
+      $this->value_options[backdrop_substr($gender, 0, 1)] = $gender;
     }
   }
 }
