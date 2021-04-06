@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Views handlers for cd_sunlight.
+ * Views handlers for electoral_api.
  */
 
 /**
@@ -10,7 +10,7 @@
  *
  * @ingroup views_field_handlers
  */
-class cd_sunlight_handler_field_congress_picture extends views_handler_field {
+class electoral_api_handler_field_congress_picture extends views_handler_field {
 
   function option_definition() {
     $options = parent::option_definition();
@@ -52,10 +52,10 @@ class cd_sunlight_handler_field_congress_picture extends views_handler_field {
       return '';
     }
 
-    $img['path'] = cd_sunlight_bioguide_image_url($values->{$this->aliases['bioguide_id']});
+    $img['path'] = electoral_api_bioguide_image_url($values->{$this->aliases['bioguide_id']});
     $img['alt'] = $img['title'] = '';
-    if ($values->cd_sunlight_legislators_lastname) {
-      $img['title'] = "$values->cd_sunlight_legislators_title. $values->cd_sunlight_legislators_firstname $values->cd_sunlight_legislators_lastname";
+    if ($values->electoral_api_legislators_lastname) {
+      $img['title'] = "$values->electoral_api_legislators_title. $values->electoral_api_legislators_firstname $values->electoral_api_legislators_lastname";
       $img['alt'] = "Photo of $img []";
     }
     // If the image style is resizing the image, add the dimensions to the img tag.

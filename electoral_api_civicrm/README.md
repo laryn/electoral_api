@@ -1,9 +1,10 @@
+# Electoral API - CiviCRM integration
 
+This module is a work in progress, converting the obsolete Sunlight Congress API
+module from Drupal 7 to see what kind of functionality can be achieved using
+ProPublica's Electoral API in Backdrop.
 
-
-*** CIVICRM CONGRESSIONAL DISTRICTS ***
-
-
+## @todo: Outdated information below needs updating after development
 
 ** ABOUT **
 
@@ -21,7 +22,7 @@ contacts into CiviCRM using the Sunlight Congress API.
 2)Navigate to
     /admin/reports/status
   To get instructions on how to configure your settings.php to use the module.  Specifically you
-  must have prefixes for several CiviCRM tables in settings.php.  
+  must have prefixes for several CiviCRM tables in settings.php.
 
 3)Link with CiviCRM fields at
     /admin/settings/cd_sunlight/cd_civicrm
@@ -35,8 +36,8 @@ contacts into CiviCRM using the Sunlight Congress API.
     /admin/settings/cd_sunlight/batch
 
 6)Edit a contact and change the postal code to enqueue the contact for lookup.  The Congressional
-  District will be retrieved the next time cron is run.  When a contact is edited from a CiviCRM 
-  profile (ex. /user/12345/edit/[civicrm profile name]) the congressional district will be 
+  District will be retrieved the next time cron is run.  When a contact is edited from a CiviCRM
+  profile (ex. /user/12345/edit/[civicrm profile name]) the congressional district will be
   immediately retrieved.
 
 

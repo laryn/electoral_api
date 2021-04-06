@@ -5,7 +5,7 @@
  *
  * @ingroup views_field_handlers
  */
-class cd_sunlight_handler_field_party extends views_handler_field {
+class electoral_api_handler_field_party extends views_handler_field {
 
   function option_definition() {
     $options = parent::option_definition();
@@ -34,18 +34,18 @@ class cd_sunlight_handler_field_party extends views_handler_field {
   }
 
   function render($values) {
-    if (empty($values->cd_sunlight_legislators_party)) {
+    if (empty($values->electoral_api_legislators_party)) {
       return;
     }
     switch ($this->options['format']) {
       case 'full':
-        $party = $values->cd_sunlight_legislators_party;
+        $party = $values->electoral_api_legislators_party;
         break;
       case 'period':
-        $party = substr($values->cd_sunlight_legislators_party, 0, 1) . '.';
+        $party = substr($values->electoral_api_legislators_party, 0, 1) . '.';
         break;
       default:
-        $party = substr($values->cd_sunlight_legislators_party, 0, 1);
+        $party = substr($values->electoral_api_legislators_party, 0, 1);
     }
     if (!empty($this->options['parenthesis'])) {
       $party = "($party)";

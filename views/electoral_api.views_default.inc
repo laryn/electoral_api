@@ -8,7 +8,7 @@
 /**
  * Implements hook_views_default_views().
  */
-function cd_sunlight_views_default_views() {
+function electoral_api_views_default_views() {
   /*
    * View 'Congress'
    */
@@ -16,7 +16,7 @@ function cd_sunlight_views_default_views() {
   $view->name = 'congress';
   $view->description = 'Current members of Congress.';
   $view->tag = '';
-  $view->base_table = 'cd_sunlight_legislators';
+  $view->base_table = 'electoral_api_legislators';
   $view->human_name = '';
   $view->core = 0;
   $view->api_version = '3.0-alpha1';
@@ -42,7 +42,7 @@ function cd_sunlight_views_default_views() {
 
   /* Field: Congress: Picture */
   $handler->display->display_options['fields']['picture']['id'] = 'picture';
-  $handler->display->display_options['fields']['picture']['table'] = 'cd_sunlight_legislators';
+  $handler->display->display_options['fields']['picture']['table'] = 'electoral_api_legislators';
   $handler->display->display_options['fields']['picture']['field'] = 'picture';
   $handler->display->display_options['fields']['picture']['label'] = '';
   $handler->display->display_options['fields']['picture']['alter']['alter_text'] = 0;
@@ -58,7 +58,7 @@ function cd_sunlight_views_default_views() {
   $handler->display->display_options['fields']['picture']['format'] = '';
   /* Field: Congress: State */
   $handler->display->display_options['fields']['state']['id'] = 'state';
-  $handler->display->display_options['fields']['state']['table'] = 'cd_sunlight_legislators';
+  $handler->display->display_options['fields']['state']['table'] = 'electoral_api_legislators';
   $handler->display->display_options['fields']['state']['field'] = 'state';
   $handler->display->display_options['fields']['state']['label'] = '';
   $handler->display->display_options['fields']['state']['exclude'] = TRUE;
@@ -74,7 +74,7 @@ function cd_sunlight_views_default_views() {
   $handler->display->display_options['fields']['state']['empty_zero'] = 0;
   /* Field: Congress: District */
   $handler->display->display_options['fields']['district']['id'] = 'district';
-  $handler->display->display_options['fields']['district']['table'] = 'cd_sunlight_legislators';
+  $handler->display->display_options['fields']['district']['table'] = 'electoral_api_legislators';
   $handler->display->display_options['fields']['district']['field'] = 'district';
   $handler->display->display_options['fields']['district']['label'] = '';
   $handler->display->display_options['fields']['district']['exclude'] = TRUE;
@@ -91,7 +91,7 @@ function cd_sunlight_views_default_views() {
   $handler->display->display_options['fields']['district']['format_plural'] = 0;
   /* Field: Congress: Chamber */
   $handler->display->display_options['fields']['chamber']['id'] = 'chamber';
-  $handler->display->display_options['fields']['chamber']['table'] = 'cd_sunlight_legislators';
+  $handler->display->display_options['fields']['chamber']['table'] = 'electoral_api_legislators';
   $handler->display->display_options['fields']['chamber']['field'] = 'chamber';
   $handler->display->display_options['fields']['chamber']['label'] = '';
   $handler->display->display_options['fields']['chamber']['exclude'] = TRUE;
@@ -128,7 +128,7 @@ function cd_sunlight_views_default_views() {
   $handler->display->display_options['fields']['nothing']['empty_zero'] = 0;
   /* Field: Congress: Title */
   $handler->display->display_options['fields']['title']['id'] = 'title';
-  $handler->display->display_options['fields']['title']['table'] = 'cd_sunlight_legislators';
+  $handler->display->display_options['fields']['title']['table'] = 'electoral_api_legislators';
   $handler->display->display_options['fields']['title']['field'] = 'title';
   $handler->display->display_options['fields']['title']['label'] = '';
   $handler->display->display_options['fields']['title']['exclude'] = TRUE;
@@ -143,7 +143,7 @@ function cd_sunlight_views_default_views() {
   $handler->display->display_options['fields']['title']['empty_zero'] = 0;
   /* Field: Congress: First Name */
   $handler->display->display_options['fields']['firstname']['id'] = 'firstname';
-  $handler->display->display_options['fields']['firstname']['table'] = 'cd_sunlight_legislators';
+  $handler->display->display_options['fields']['firstname']['table'] = 'electoral_api_legislators';
   $handler->display->display_options['fields']['firstname']['field'] = 'firstname';
   $handler->display->display_options['fields']['firstname']['label'] = '';
   $handler->display->display_options['fields']['firstname']['exclude'] = TRUE;
@@ -158,7 +158,7 @@ function cd_sunlight_views_default_views() {
   $handler->display->display_options['fields']['firstname']['empty_zero'] = 0;
   /* Field: Congress: Middle Name */
   $handler->display->display_options['fields']['middlename']['id'] = 'middlename';
-  $handler->display->display_options['fields']['middlename']['table'] = 'cd_sunlight_legislators';
+  $handler->display->display_options['fields']['middlename']['table'] = 'electoral_api_legislators';
   $handler->display->display_options['fields']['middlename']['field'] = 'middlename';
   $handler->display->display_options['fields']['middlename']['label'] = '';
   $handler->display->display_options['fields']['middlename']['exclude'] = TRUE;
@@ -173,7 +173,7 @@ function cd_sunlight_views_default_views() {
   $handler->display->display_options['fields']['middlename']['empty_zero'] = 0;
   /* Field: Congress: Nickname */
   $handler->display->display_options['fields']['nickname']['id'] = 'nickname';
-  $handler->display->display_options['fields']['nickname']['table'] = 'cd_sunlight_legislators';
+  $handler->display->display_options['fields']['nickname']['table'] = 'electoral_api_legislators';
   $handler->display->display_options['fields']['nickname']['field'] = 'nickname';
   $handler->display->display_options['fields']['nickname']['label'] = '';
   $handler->display->display_options['fields']['nickname']['exclude'] = TRUE;
@@ -190,7 +190,7 @@ function cd_sunlight_views_default_views() {
   $handler->display->display_options['fields']['nickname']['quotes'] = 1;
   /* Field: Congress: Last Name */
   $handler->display->display_options['fields']['lastname']['id'] = 'lastname';
-  $handler->display->display_options['fields']['lastname']['table'] = 'cd_sunlight_legislators';
+  $handler->display->display_options['fields']['lastname']['table'] = 'electoral_api_legislators';
   $handler->display->display_options['fields']['lastname']['field'] = 'lastname';
   $handler->display->display_options['fields']['lastname']['label'] = '';
   $handler->display->display_options['fields']['lastname']['exclude'] = TRUE;
@@ -205,7 +205,7 @@ function cd_sunlight_views_default_views() {
   $handler->display->display_options['fields']['lastname']['empty_zero'] = 0;
   /* Field: Congress: Name Suffix */
   $handler->display->display_options['fields']['name_suffix']['id'] = 'name_suffix';
-  $handler->display->display_options['fields']['name_suffix']['table'] = 'cd_sunlight_legislators';
+  $handler->display->display_options['fields']['name_suffix']['table'] = 'electoral_api_legislators';
   $handler->display->display_options['fields']['name_suffix']['field'] = 'name_suffix';
   $handler->display->display_options['fields']['name_suffix']['label'] = '';
   $handler->display->display_options['fields']['name_suffix']['exclude'] = TRUE;
@@ -220,7 +220,7 @@ function cd_sunlight_views_default_views() {
   $handler->display->display_options['fields']['name_suffix']['empty_zero'] = 0;
   /* Field: Congress: Party */
   $handler->display->display_options['fields']['party']['id'] = 'party';
-  $handler->display->display_options['fields']['party']['table'] = 'cd_sunlight_legislators';
+  $handler->display->display_options['fields']['party']['table'] = 'electoral_api_legislators';
   $handler->display->display_options['fields']['party']['field'] = 'party';
   $handler->display->display_options['fields']['party']['label'] = '';
   $handler->display->display_options['fields']['party']['exclude'] = TRUE;
@@ -256,7 +256,7 @@ function cd_sunlight_views_default_views() {
   $handler->display->display_options['fields']['nothing_2']['empty_zero'] = 0;
   /* Field: Congress: Webform */
   $handler->display->display_options['fields']['webform']['id'] = 'webform';
-  $handler->display->display_options['fields']['webform']['table'] = 'cd_sunlight_legislators';
+  $handler->display->display_options['fields']['webform']['table'] = 'electoral_api_legislators';
   $handler->display->display_options['fields']['webform']['field'] = 'webform';
   $handler->display->display_options['fields']['webform']['label'] = '';
   $handler->display->display_options['fields']['webform']['exclude'] = TRUE;
@@ -275,7 +275,7 @@ function cd_sunlight_views_default_views() {
   $handler->display->display_options['fields']['webform']['new_window'] = 1;
   /* Field: Congress: Facebook URL */
   $handler->display->display_options['fields']['facebook_url']['id'] = 'facebook_url';
-  $handler->display->display_options['fields']['facebook_url']['table'] = 'cd_sunlight_legislators';
+  $handler->display->display_options['fields']['facebook_url']['table'] = 'electoral_api_legislators';
   $handler->display->display_options['fields']['facebook_url']['field'] = 'facebook_url';
   $handler->display->display_options['fields']['facebook_url']['label'] = '';
   $handler->display->display_options['fields']['facebook_url']['exclude'] = TRUE;
@@ -298,7 +298,7 @@ function cd_sunlight_views_default_views() {
   $handler->display->display_options['fields']['facebook_url']['new_window'] = 1;
   /* Field: Congress: Twitter Page */
   $handler->display->display_options['fields']['twitter_id']['id'] = 'twitter_id';
-  $handler->display->display_options['fields']['twitter_id']['table'] = 'cd_sunlight_legislators';
+  $handler->display->display_options['fields']['twitter_id']['table'] = 'electoral_api_legislators';
   $handler->display->display_options['fields']['twitter_id']['field'] = 'twitter_id';
   $handler->display->display_options['fields']['twitter_id']['label'] = '';
   $handler->display->display_options['fields']['twitter_id']['exclude'] = TRUE;
@@ -317,7 +317,7 @@ function cd_sunlight_views_default_views() {
   $handler->display->display_options['fields']['twitter_id']['new_window'] = 1;
   /* Field: Congress: YouTube Page */
   $handler->display->display_options['fields']['youtube_url']['id'] = 'youtube_url';
-  $handler->display->display_options['fields']['youtube_url']['table'] = 'cd_sunlight_legislators';
+  $handler->display->display_options['fields']['youtube_url']['table'] = 'electoral_api_legislators';
   $handler->display->display_options['fields']['youtube_url']['field'] = 'youtube_url';
   $handler->display->display_options['fields']['youtube_url']['label'] = '';
   $handler->display->display_options['fields']['youtube_url']['exclude'] = TRUE;
@@ -336,7 +336,7 @@ function cd_sunlight_views_default_views() {
   $handler->display->display_options['fields']['youtube_url']['new_window'] = 1;
   /* Field: Congress: BioGuide page */
   $handler->display->display_options['fields']['bioguide_id']['id'] = 'bioguide_id';
-  $handler->display->display_options['fields']['bioguide_id']['table'] = 'cd_sunlight_legislators';
+  $handler->display->display_options['fields']['bioguide_id']['table'] = 'electoral_api_legislators';
   $handler->display->display_options['fields']['bioguide_id']['field'] = 'bioguide_id';
   $handler->display->display_options['fields']['bioguide_id']['label'] = '';
   $handler->display->display_options['fields']['bioguide_id']['exclude'] = TRUE;
@@ -355,7 +355,7 @@ function cd_sunlight_views_default_views() {
   $handler->display->display_options['fields']['bioguide_id']['new_window'] = 1;
   /* Field: Congress: Govtrack page */
   $handler->display->display_options['fields']['govtrack_id']['id'] = 'govtrack_id';
-  $handler->display->display_options['fields']['govtrack_id']['table'] = 'cd_sunlight_legislators';
+  $handler->display->display_options['fields']['govtrack_id']['table'] = 'electoral_api_legislators';
   $handler->display->display_options['fields']['govtrack_id']['field'] = 'govtrack_id';
   $handler->display->display_options['fields']['govtrack_id']['label'] = '';
   $handler->display->display_options['fields']['govtrack_id']['exclude'] = TRUE;
@@ -374,7 +374,7 @@ function cd_sunlight_views_default_views() {
   $handler->display->display_options['fields']['govtrack_id']['new_window'] = 1;
   /* Field: Congress: OpenCongress page */
   $handler->display->display_options['fields']['congresspedia_url']['id'] = 'congresspedia_url';
-  $handler->display->display_options['fields']['congresspedia_url']['table'] = 'cd_sunlight_legislators';
+  $handler->display->display_options['fields']['congresspedia_url']['table'] = 'electoral_api_legislators';
   $handler->display->display_options['fields']['congresspedia_url']['field'] = 'congresspedia_url';
   $handler->display->display_options['fields']['congresspedia_url']['label'] = '';
   $handler->display->display_options['fields']['congresspedia_url']['exclude'] = TRUE;
@@ -393,7 +393,7 @@ function cd_sunlight_views_default_views() {
   $handler->display->display_options['fields']['congresspedia_url']['new_window'] = 1;
   /* Field: Congress: OpenSecrets page */
   $handler->display->display_options['fields']['crp_id']['id'] = 'crp_id';
-  $handler->display->display_options['fields']['crp_id']['table'] = 'cd_sunlight_legislators';
+  $handler->display->display_options['fields']['crp_id']['table'] = 'electoral_api_legislators';
   $handler->display->display_options['fields']['crp_id']['field'] = 'crp_id';
   $handler->display->display_options['fields']['crp_id']['label'] = '';
   $handler->display->display_options['fields']['crp_id']['exclude'] = TRUE;
@@ -412,7 +412,7 @@ function cd_sunlight_views_default_views() {
   $handler->display->display_options['fields']['crp_id']['new_window'] = 1;
   /* Field: Congress: Progressive Punch Page */
   $handler->display->display_options['fields']['progressive_punch']['id'] = 'progressive_punch';
-  $handler->display->display_options['fields']['progressive_punch']['table'] = 'cd_sunlight_legislators';
+  $handler->display->display_options['fields']['progressive_punch']['table'] = 'electoral_api_legislators';
   $handler->display->display_options['fields']['progressive_punch']['field'] = 'progressive_punch';
   $handler->display->display_options['fields']['progressive_punch']['label'] = '';
   $handler->display->display_options['fields']['progressive_punch']['exclude'] = TRUE;
@@ -431,7 +431,7 @@ function cd_sunlight_views_default_views() {
   $handler->display->display_options['fields']['progressive_punch']['new_window'] = 1;
   /* Field: Congress: VoteSmart page */
   $handler->display->display_options['fields']['votesmart_id']['id'] = 'votesmart_id';
-  $handler->display->display_options['fields']['votesmart_id']['table'] = 'cd_sunlight_legislators';
+  $handler->display->display_options['fields']['votesmart_id']['table'] = 'electoral_api_legislators';
   $handler->display->display_options['fields']['votesmart_id']['field'] = 'votesmart_id';
   $handler->display->display_options['fields']['votesmart_id']['label'] = '';
   $handler->display->display_options['fields']['votesmart_id']['exclude'] = TRUE;
@@ -471,7 +471,7 @@ function cd_sunlight_views_default_views() {
   $handler->display->display_options['fields']['nothing_3']['empty_zero'] = 0;
   /* Field: Congress: Phone */
   $handler->display->display_options['fields']['phone']['id'] = 'phone';
-  $handler->display->display_options['fields']['phone']['table'] = 'cd_sunlight_legislators';
+  $handler->display->display_options['fields']['phone']['table'] = 'electoral_api_legislators';
   $handler->display->display_options['fields']['phone']['field'] = 'phone';
   $handler->display->display_options['fields']['phone']['label'] = '';
   $handler->display->display_options['fields']['phone']['exclude'] = TRUE;
@@ -488,7 +488,7 @@ function cd_sunlight_views_default_views() {
   $handler->display->display_options['fields']['phone']['empty_zero'] = 0;
   /* Field: Congress: Fax */
   $handler->display->display_options['fields']['fax']['id'] = 'fax';
-  $handler->display->display_options['fields']['fax']['table'] = 'cd_sunlight_legislators';
+  $handler->display->display_options['fields']['fax']['table'] = 'electoral_api_legislators';
   $handler->display->display_options['fields']['fax']['field'] = 'fax';
   $handler->display->display_options['fields']['fax']['label'] = '';
   $handler->display->display_options['fields']['fax']['exclude'] = TRUE;
@@ -547,22 +547,22 @@ function cd_sunlight_views_default_views() {
 
   /* Sort criterion: Congress: State */
   $handler->display->display_options['sorts']['state']['id'] = 'state';
-  $handler->display->display_options['sorts']['state']['table'] = 'cd_sunlight_legislators';
+  $handler->display->display_options['sorts']['state']['table'] = 'electoral_api_legislators';
   $handler->display->display_options['sorts']['state']['field'] = 'state';
   /* Sort criterion: Congress: District */
   $handler->display->display_options['sorts']['district']['id'] = 'district';
-  $handler->display->display_options['sorts']['district']['table'] = 'cd_sunlight_legislators';
+  $handler->display->display_options['sorts']['district']['table'] = 'electoral_api_legislators';
   $handler->display->display_options['sorts']['district']['field'] = 'district';
 
   /* Argument: Congress: State */
   $handler->display->display_options['arguments']['state']['id'] = 'state';
-  $handler->display->display_options['arguments']['state']['table'] = 'cd_sunlight_legislators';
+  $handler->display->display_options['arguments']['state']['table'] = 'electoral_api_legislators';
   $handler->display->display_options['arguments']['state']['field'] = 'state';
   $handler->display->display_options['arguments']['state']['style_plugin'] = 'default_summary';
   $handler->display->display_options['arguments']['state']['default_argument_type'] = 'fixed';
   /* Argument: Congress: District */
   $handler->display->display_options['arguments']['district']['id'] = 'district';
-  $handler->display->display_options['arguments']['district']['table'] = 'cd_sunlight_legislators';
+  $handler->display->display_options['arguments']['district']['table'] = 'electoral_api_legislators';
   $handler->display->display_options['arguments']['district']['field'] = 'district';
   $handler->display->display_options['arguments']['district']['style_plugin'] = 'default_summary';
   $handler->display->display_options['arguments']['district']['default_argument_type'] = 'fixed';
@@ -574,7 +574,7 @@ function cd_sunlight_views_default_views() {
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter: Congress: Party */
   $handler->display->display_options['filters']['party']['id'] = 'party';
-  $handler->display->display_options['filters']['party']['table'] = 'cd_sunlight_legislators';
+  $handler->display->display_options['filters']['party']['table'] = 'electoral_api_legislators';
   $handler->display->display_options['filters']['party']['field'] = 'party';
   $handler->display->display_options['filters']['party']['exposed'] = TRUE;
   $handler->display->display_options['filters']['party']['expose']['label'] = 'Party';
@@ -585,7 +585,7 @@ function cd_sunlight_views_default_views() {
   $handler->display->display_options['filters']['party']['expose']['remember'] = 1;
   /* Filter: Congress: Title */
   $handler->display->display_options['filters']['title']['id'] = 'title';
-  $handler->display->display_options['filters']['title']['table'] = 'cd_sunlight_legislators';
+  $handler->display->display_options['filters']['title']['table'] = 'electoral_api_legislators';
   $handler->display->display_options['filters']['title']['field'] = 'title';
   $handler->display->display_options['filters']['title']['exposed'] = TRUE;
   $handler->display->display_options['filters']['title']['expose']['label'] = 'Title';
@@ -596,7 +596,7 @@ function cd_sunlight_views_default_views() {
   $handler->display->display_options['filters']['title']['expose']['remember'] = 1;
   /* Filter: Congress: State */
   $handler->display->display_options['filters']['state']['id'] = 'state';
-  $handler->display->display_options['filters']['state']['table'] = 'cd_sunlight_legislators';
+  $handler->display->display_options['filters']['state']['table'] = 'electoral_api_legislators';
   $handler->display->display_options['filters']['state']['field'] = 'state';
   $handler->display->display_options['filters']['state']['exposed'] = TRUE;
   $handler->display->display_options['filters']['state']['expose']['label'] = 'State';
@@ -608,7 +608,7 @@ function cd_sunlight_views_default_views() {
   $handler->display->display_options['filters']['state']['reduce_duplicates'] = 0;
   /* Filter: Congress: Gender */
   $handler->display->display_options['filters']['gender']['id'] = 'gender';
-  $handler->display->display_options['filters']['gender']['table'] = 'cd_sunlight_legislators';
+  $handler->display->display_options['filters']['gender']['table'] = 'electoral_api_legislators';
   $handler->display->display_options['filters']['gender']['field'] = 'gender';
   $handler->display->display_options['filters']['gender']['exposed'] = TRUE;
   $handler->display->display_options['filters']['gender']['expose']['label'] = 'Gender';

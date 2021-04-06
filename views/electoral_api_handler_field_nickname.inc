@@ -5,7 +5,7 @@
  *
  * @ingroup views_field_handlers
  */
-class cd_sunlight_handler_field_nickname extends views_handler_field {
+class electoral_api_handler_field_nickname extends views_handler_field {
 
   function option_definition() {
     $options = parent::option_definition();
@@ -23,10 +23,10 @@ class cd_sunlight_handler_field_nickname extends views_handler_field {
   }
 
   function render($values) {
-    if (!empty($this->options['quotes']) && !empty($values->cd_sunlight_legislators_nickname)) {
-      return '"' . $values->cd_sunlight_legislators_nickname . '"';
+    if (!empty($this->options['quotes']) && !empty($values->electoral_api_legislators_nickname)) {
+      return '"' . $values->electoral_api_legislators_nickname . '"';
     }
-    return $values->cd_sunlight_legislators_nickname;
+    return $values->electoral_api_legislators_nickname;
   }
 
 }

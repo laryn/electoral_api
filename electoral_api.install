@@ -2,17 +2,17 @@
 
 /**
  * @file
- * Install/Updates for cd_sunlight.
+ * Install/Updates for electoral_api.
  */
 
 /**
  * Implements hook_schema().
  */
-function cd_sunlight_schema() {
-  $schema['cd_sunlight_cron'] = array(
+function electoral_api_schema() {
+  $schema['electoral_api_cron'] = array(
     'description' => 'Contains contact_ids that will be sent for CD Lookup on the next cron run.',
     'fields' => array(
-      'cd_sunlight_cron_id' => array(
+      'electoral_api_cron_id' => array(
         'description' => 'Autoincrementing primary key.',
         'type' => 'serial',
         'unsigned' => TRUE,
@@ -58,13 +58,13 @@ function cd_sunlight_schema() {
         'default' => 0,
       ),
     ),
-    'primary key' => array('cd_sunlight_cron_id'),
+    'primary key' => array('electoral_api_cron_id'),
     'indexes' => array(
-      'cd_sunlight_cron_contact_id_processed_idx' => array('contact_id', 'processed'),
+      'electoral_api_cron_contact_id_processed_idx' => array('contact_id', 'processed'),
     ),
   );
 
-  $schema['cd_sunlight_legislators'] = array(
+  $schema['electoral_api_legislators'] = array(
     'description' => 'The current members of Congress as returned by the Sunlight API.',
     'fields' => array(
       'legislator_id' => array(
@@ -249,10 +249,10 @@ function cd_sunlight_schema() {
     ),
     'primary key' => array('legislator_id'),
     'indexes' => array(
-      'cd_sunlight_legislators_party_idx' => array('party'),
-      'cd_sunlight_legislators_state_district_idx' => array('state', 'district'),
-      'cd_sunlight_legislators_title_idx' => array('title'),
-      'cd_sunlight_legislators_gender_idx' => array('gender'),
+      'electoral_api_legislators_party_idx' => array('party'),
+      'electoral_api_legislators_state_district_idx' => array('state', 'district'),
+      'electoral_api_legislators_title_idx' => array('title'),
+      'electoral_api_legislators_gender_idx' => array('gender'),
     ),
   );
 
@@ -263,18 +263,18 @@ function cd_sunlight_schema() {
 /**
  * Implements hook_requriements().
  */
-function cd_sunlight_requirements($phase) {
+function electoral_api_requirements($phase) {
   global $db_prefix;
   $requirements = array();
   if ($phase == 'runtime') {
 
     // Raise an error if a the module has not been setup.
     // TODO This variable was probably removed in Backdrop without replacement.
-    if (!variable_get('cd_sunlight_api_key', '')) {
-      $requirements['cd_sunlight_setup'] = array(
+    if (!variable_get('electoral_api_api_key', '')) {
+      $requirements['electoral_api_setup'] = array(
         'title' => 'Sunlight Congressional District',
         'description' => t('You have not <a href="!url">configured</a> the module.'
-          , array('!url' => url('admin/config/services/cd_sunlight'))),
+          , array('!url' => url('admin/config/services/electoral_api'))),
         'severity' => REQUIREMENT_ERROR,
         'value' => t('Not configured'),
       );
@@ -282,17 +282,17 @@ function cd_sunlight_requirements($phase) {
 
     // Report the number of lookups ever performed.
     // TODO This variable was probably removed in Backdrop without replacement.
-    $requirements['cd_sunlight_total_lookups'] = array(
+    $requirements['electoral_api_total_lookups'] = array(
       'title' => 'Sunlight Congressional District lookups',
       'value' => t('A total of !count lookups to Sunlight have been performed.',
-        array('!count' => number_format(variable_get('cd_sunlight_total_lookups', 0)))),
+        array('!count' => number_format(variable_get('electoral_api_total_lookups', 0)))),
       'severity' => REQUIREMENT_INFO,
     );
 
     // Report the number of records in the lookup queue.
-    $query = db_select('cd_sunlight_cron')->condition('processed', FALSE);
+    $query = db_select('electoral_api_cron')->condition('processed', FALSE);
     $count = $query->countQuery()->execute()->fetchField();
-    $requirements['cd_sunlight_count'] = array(
+    $requirements['electoral_api_count'] = array(
       'title' => 'Sunlight Congressional District queue',
       'value' => t('There are !count contacts in the queue for a CD lookup.',
         array('!count' => $count)),
@@ -301,8 +301,8 @@ function cd_sunlight_requirements($phase) {
     );
 
     // Report an error if there are no legislators (cron needs to be run).
-    if (!_cd_sunlight_legislators_exist()) {
-      $requirements['cd_sunlight_legislators_exist'] = array(
+    if (!_electoral_api_legislators_exist()) {
+      $requirements['electoral_api_legislators_exist'] = array(
         'title' => 'Members of Congress',
         'value' => 'Do not exist',
         'description' => t('Run cron to retrieve members of Congress from Sunlight.'),
@@ -319,53 +319,53 @@ function cd_sunlight_requirements($phase) {
  *
  * @return none
  */
-function cd_sunlight_uninstall() {
+function electoral_api_uninstall() {
   // TODO This variable was probably removed in Backdrop without replacement.
-  variable_del('cd_sunlight_api_key');
+  variable_del('electoral_api_api_key');
   // TODO This variable was probably removed in Backdrop without replacement.
-  variable_del('cd_sunlight_cron_load_limit');
+  variable_del('electoral_api_cron_load_limit');
   // TODO This variable was probably removed in Backdrop without replacement.
-  variable_del('cd_sunlight_geocoding_off');
+  variable_del('electoral_api_geocoding_off');
   // TODO This variable was probably removed in Backdrop without replacement.
-  variable_del('cd_sunlight_geocode_username');
+  variable_del('electoral_api_geocode_username');
   // TODO This variable was probably removed in Backdrop without replacement.
-  variable_del('cd_sunlight_http_auth_user');
+  variable_del('electoral_api_http_auth_user');
   // TODO This variable was probably removed in Backdrop without replacement.
-  variable_del('cd_sunlight_http_auth_password');
+  variable_del('electoral_api_http_auth_password');
   // TODO This variable was probably removed in Backdrop without replacement.
-  variable_del('cd_sunlight_api_key');
+  variable_del('electoral_api_api_key');
   // TODO This variable was probably removed in Backdrop without replacement.
-  variable_del('cd_sunlight_cron_contact_limit');
+  variable_del('electoral_api_cron_contact_limit');
   // TODO This variable was probably removed in Backdrop without replacement.
-  variable_del('cd_sunlight_total_lookups');
+  variable_del('electoral_api_total_lookups');
   // TODO This variable was probably removed in Backdrop without replacement.
-  variable_del('cd_sunlight_civicrm_cd');
+  variable_del('electoral_api_civicrm_cd');
   // TODO This variable was probably removed in Backdrop without replacement.
-  variable_del('cd_sunlight_civicrm_cd_override');
+  variable_del('electoral_api_civicrm_cd_override');
   // TODO This variable was probably removed in Backdrop without replacement.
-  variable_del('cd_sunlight_crypt_iv');
+  variable_del('electoral_api_crypt_iv');
 }
 
 /**
  * Change our cron table to the new and improved version with more detailed logging.
  */
-function cd_sunlight_update_6001() {
+function electoral_api_update_6001() {
 
   // First get all the existing contact_ids.
-  $res = db_query('SELECT contact_id FROM {cd_sunlight_cron}');
+  $res = db_query('SELECT contact_id FROM {electoral_api_cron}');
   $contact_ids = array();
   while ($row = db_fetch_object($res)) {
     $contact_ids[] = $row->contact_id;
   }
 
   // Drop the old table.
-  db_drop_table('cd_sunlight_cron');
+  db_drop_table('electoral_api_cron');
 
   // Recreate the table.
   $table = array(
     'description' => t('Contains contact_ids that will be sent for CD Lookup on the next cron run.'),
     'fields' => array(
-      'cd_sunlight_cron_id' => array(
+      'electoral_api_cron_id' => array(
         'description' => t('Autoincrementing primary key.'),
         'type' => 'serial',
         'unsigned' => TRUE,
@@ -404,25 +404,25 @@ function cd_sunlight_update_6001() {
         'default' => 0,
       ),
     ),
-    'primary key' => array('cd_sunlight_cron_id'),
+    'primary key' => array('electoral_api_cron_id'),
     'indexes' => array(
-      'cd_sunlight_cron_contact_id_processed_idx' => array('contact_id', 'processed'),
+      'electoral_api_cron_contact_id_processed_idx' => array('contact_id', 'processed'),
     ),
   );
-  db_create_table('cd_sunlight_cron', $table);
+  db_create_table('electoral_api_cron', $table);
 
   // Requeue the contact_ids from the old table.
   foreach ($contact_ids as $contact_id) {
-    cd_sunlight_contact_enqueue($contact_id);
+    electoral_api_contact_enqueue($contact_id);
   }
 
-  return t('Changed {cd_sunlight_cron} table to the new and improved version with more detailed logging.');
+  return t('Changed {electoral_api_cron} table to the new and improved version with more detailed logging.');
 }
 
 /**
  * Update our schema with the new fields that Sunlight provides: senate_class and birthdate.
  */
-function cd_sunlight_update_6002() {
+function electoral_api_update_6002() {
   $senate_class = array(
     'description' => t("For senators I, II, or III depending on the Senator's election term."),
     'type' => 'varchar',
@@ -430,21 +430,21 @@ function cd_sunlight_update_6002() {
     'not null' => TRUE,
     'default' => '',
   );
-  db_add_field('cd_sunlight_legislators', 'senate_class', $senate_class);
+  db_add_field('electoral_api_legislators', 'senate_class', $senate_class);
   $birthdate = array(
     'description' => t("YYYY-MM-DD formatted birth date."),
     'mysql_type' => 'DATE',
     'pgsql_type' => 'timestamp without time zone',
     'not null' => FALSE,
   );
-  db_add_field('cd_sunlight_legislators', 'birthdate', $birthdate);
-  return t('Updated {cd_sunlight_legislators} with the new fields that Sunlight provides: senate_class and birthdate.');
+  db_add_field('electoral_api_legislators', 'birthdate', $birthdate);
+  return t('Updated {electoral_api_legislators} with the new fields that Sunlight provides: senate_class and birthdate.');
 }
 
 /**
  * Upgrade path for splitting the module.
  */
-function cd_sunlight_update_6003() {
+function electoral_api_update_6003() {
 
   // Enable module.
   system_rebuild_module_data();
@@ -463,58 +463,58 @@ function cd_sunlight_update_6003() {
     'not null' => TRUE,
     'default' => '',
   );
-  db_add_field('cd_sunlight_cron', 'storage_system', $storage_system);
+  db_add_field('electoral_api_cron', 'storage_system', $storage_system);
 
   // All contacts thus far must've been processed by CiviCRM.
-  db_update('cd_sunlight_cron')
+  db_update('electoral_api_cron')
     ->fields(array('storage_system' => "civicrm"))
     ->execute();
 
   // Variables.
   // TODO This variable was probably removed in Backdrop without replacement.
   // TODO This variable was probably removed in Backdrop without replacement.
-  variable_set('cd_civicrm_cd', variable_get('cd_sunlight_civicrm_cd', ''));
+  variable_set('cd_civicrm_cd', variable_get('electoral_api_civicrm_cd', ''));
   // TODO This variable was probably removed in Backdrop without replacement.
   // TODO This variable was probably removed in Backdrop without replacement.
-  variable_set('cd_civicrm_cd_override', variable_get('cd_sunlight_civicrm_cd_override', ''));
+  variable_set('cd_civicrm_cd_override', variable_get('electoral_api_civicrm_cd_override', ''));
   // TODO This variable was probably removed in Backdrop without replacement.
   // TODO This variable was probably removed in Backdrop without replacement.
-  variable_set('cd_civicrm_custom_field_cd', variable_get('cd_sunlight_civicrm_custom_field_cd', ''));
+  variable_set('cd_civicrm_custom_field_cd', variable_get('electoral_api_civicrm_custom_field_cd', ''));
   // TODO This variable was probably removed in Backdrop without replacement.
   // TODO This variable was probably removed in Backdrop without replacement.
-  variable_set('cd_civicrm_custom_field_cd_override', variable_get('cd_sunlight_civicrm_custom_field_cd_override', ''));
+  variable_set('cd_civicrm_custom_field_cd_override', variable_get('electoral_api_civicrm_custom_field_cd_override', ''));
   // TODO This variable was probably removed in Backdrop without replacement.
   // TODO This variable was probably removed in Backdrop without replacement.
-  variable_set('cd_civicrm_custom_table', variable_get('cd_sunlight_civicrm_custom_table', ''));
+  variable_set('cd_civicrm_custom_table', variable_get('electoral_api_civicrm_custom_table', ''));
   // TODO This variable was probably removed in Backdrop without replacement.
   // TODO This variable was probably removed in Backdrop without replacement.
-  variable_set('cd_civicrm_geocoding_off', variable_get('cd_sunlight_geocoding_off', ''));
+  variable_set('cd_civicrm_geocoding_off', variable_get('electoral_api_geocoding_off', ''));
   // TODO This variable was probably removed in Backdrop without replacement.
-  variable_del('cd_sunlight_civicrm_cd');
+  variable_del('electoral_api_civicrm_cd');
   // TODO This variable was probably removed in Backdrop without replacement.
-  variable_del('cd_sunlight_civicrm_cd_override');
+  variable_del('electoral_api_civicrm_cd_override');
   // TODO This variable was probably removed in Backdrop without replacement.
-  variable_del('cd_sunlight_civicrm_custom_field_cd');
+  variable_del('electoral_api_civicrm_custom_field_cd');
   // TODO This variable was probably removed in Backdrop without replacement.
-  variable_del('cd_sunlight_civicrm_custom_field_cd_override');
+  variable_del('electoral_api_civicrm_custom_field_cd_override');
   // TODO This variable was probably removed in Backdrop without replacement.
-  variable_del('cd_sunlight_civicrm_custom_table');
+  variable_del('electoral_api_civicrm_custom_table');
   // TODO This variable was probably removed in Backdrop without replacement.
-  variable_del('cd_sunlight_geocoding_off');
+  variable_del('electoral_api_geocoding_off');
   // TODO This variable was probably removed in Backdrop without replacement.
-  variable_del('cd_sunlight_geocode_username');
+  variable_del('electoral_api_geocode_username');
   // TODO This variable was probably removed in Backdrop without replacement.
-  variable_del('cd_sunlight_crypt_iv');
+  variable_del('electoral_api_crypt_iv');
   // TODO This variable was probably removed in Backdrop without replacement.
-  variable_del('cd_sunlight_http_auth_user');
+  variable_del('electoral_api_http_auth_user');
   // TODO This variable was probably removed in Backdrop without replacement.
-  variable_del('cd_sunlight_http_auth_password');
+  variable_del('electoral_api_http_auth_password');
 
   // Check for batch geocoding.
-  if (defined('CD_SUNLIGHT_GEOCODE_PASSWORD')) {
+  if (defined('electoral_api_GEOCODE_PASSWORD')) {
     $return[] = array(
       'success' => FALSE,
-      'query' => t('The CD_SUNLIGHT_GEOCODE_PASSWORD in settings.php must be renamed to CD_CIVICRM_GEOCODE_PASSWORD.'),
+      'query' => t('The electoral_api_GEOCODE_PASSWORD in settings.php must be renamed to CD_CIVICRM_GEOCODE_PASSWORD.'),
     );
   }
 
@@ -524,7 +524,7 @@ function cd_sunlight_update_6003() {
     $return[] = array(
       'success' => FALSE,
       'query' => t('You must re set the <a href="!url">Advanced Batch Geocoding</a> settings as the encryption logic has changed.',
-              array('!url' => url('admin/config/services/cd_sunlight'))),
+              array('!url' => url('admin/config/services/electoral_api'))),
     );
   }
 
@@ -533,27 +533,27 @@ function cd_sunlight_update_6003() {
   cache_clear_all('*', 'cache_menu', TRUE);
   menu_rebuild();
 
-  return t('Split cd_sunlight module into cd_sunlight and cd_civicrm.');
+  return t('Split electoral_api module into electoral_api and cd_civicrm.');
 }
 
 /**
  * Increase the length of the webform field.
  */
-function cd_sunlight_update_6004() {
+function electoral_api_update_6004() {
   $webform = array(
     'type' => 'varchar',
     'length' => '255',
     'not null' => FALSE,
   );
 
-  db_change_field('cd_sunlight_legislators', 'webform', 'webform', $webform);
+  db_change_field('electoral_api_legislators', 'webform', 'webform', $webform);
   return t('Increased length of webform field.');
 }
 
 /**
  * Update schema with the new fields that Sunlight provides: facebook_id.
  */
-function cd_sunlight_update_6005() {
+function electoral_api_update_6005() {
   $facebook_id = array(
     'description' => t("Facebook ID."),
     'type' => 'varchar',
@@ -562,8 +562,8 @@ function cd_sunlight_update_6005() {
     'default' => '',
     'initial' => '',
   );
-  db_add_field('cd_sunlight_legislators', 'facebook_id', $facebook_id);
-  _cd_sunlight_congress_update_all();
+  db_add_field('electoral_api_legislators', 'facebook_id', $facebook_id);
+  _electoral_api_congress_update_all();
   return t('Updated schema with the new fields that Sunlight provides: facebook_id.');
 }
 
@@ -571,7 +571,7 @@ function cd_sunlight_update_6005() {
 /**
  * Clear appropriate caches.
  */
-function cd_sunlight_update_7100() {
+function electoral_api_update_7100() {
 
   // Remove the blocks that had the old-style capitalized names.
   db_query("DELETE FROM {block} WHERE module = 'views' AND delta IN('Congress-block_1', 'Congress-block_3')");

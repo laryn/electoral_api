@@ -1,9 +1,8 @@
 name = CiviCRM Congressional District
 description = Stores congressional district information when a CiviCRM contact changes.
-dependencies[] = civicrm
-dependencies[] = cd_sunlight
 backdrop = 1.x
 type = module
-php = 5.0
-configure = admin/config/services/cd_sunlight/cd_civicrm
+configure = admin/config/services/electoral_api/electoral_api_civicrm
 
+dependencies[] = civicrm
+dependencies[] = electoral_api

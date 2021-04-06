@@ -3,7 +3,7 @@
 /**
  * Filter handler for party.
  */
-class cd_civicrm_handler_filter_gender extends views_handler_filter_in_operator {
+class electoral_api_civicrm_handler_filter_gender extends views_handler_filter_in_operator {
   function get_value_options() {
     if (!civicrm_initialize()) {
       return;

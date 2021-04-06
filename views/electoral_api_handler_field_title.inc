@@ -5,7 +5,7 @@
  *
  * @ingroup views_field_handlers
  */
-class cd_sunlight_handler_field_title extends views_handler_field {
+class electoral_api_handler_field_title extends views_handler_field {
 
   function option_definition() {
     $options = parent::option_definition();
@@ -27,11 +27,11 @@ class cd_sunlight_handler_field_title extends views_handler_field {
   }
 
   function render($values) {
-    if (empty($values->cd_sunlight_legislators_title)) {
+    if (empty($values->electoral_api_legislators_title)) {
       return;
     }
     if ($this->options['format'] != 'full') {
-      return $values->cd_sunlight_legislators_title . '.';
+      return $values->electoral_api_legislators_title . '.';
     }
     $titles = array(
       'Sen' => t('Senator'),
@@ -39,7 +39,7 @@ class cd_sunlight_handler_field_title extends views_handler_field {
       'Del' => t('Delegate'),
       'Com' => t('Commissioner'),
     );
-    return $titles[$values->cd_sunlight_legislators_title];
+    return $titles[$values->electoral_api_legislators_title];
   }
 
 }

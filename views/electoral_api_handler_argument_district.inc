@@ -3,7 +3,7 @@
 /**
  * Filter handler for state.  This is very basic, but cd_civicrm can override it.
  */
-class cd_sunlight_handler_argument_district extends views_handler_argument_numeric {
+class electoral_api_handler_argument_district extends views_handler_argument_numeric {
 
   function query() {
     parent::query();

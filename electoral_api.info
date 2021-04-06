@@ -1,8 +1,7 @@
-name = Sunlight Congressional District
-description = Integrates with the Sunlight service to show lists of members of Congress.
-dependencies[] = views
+name = Electoral API (with CiviCRM integration)
+description = Integrates with the Pro Publica Electoral API service to show lists of members of Congress.
 backdrop = 1.x
 type = module
-php = 5.0
-configure = admin/config/services/cd_sunlight
+configure = admin/config/services/electoral_api
 
+dependencies[] = views

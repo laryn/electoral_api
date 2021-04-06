@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Views handlers for cd_civicrm.
+ * Views handlers for electoral_api_civicrm.
  *
  * @todo Change the block/page title appropriately.
  */
@@ -12,7 +12,7 @@
  *
  * @ingroup views_field_handlers
  */
-class cd_civicrm_handler_filter_state_current_user extends views_handler_filter_boolean_operator {
+class electoral_api_civicrm_handler_filter_state_current_user extends views_handler_filter_boolean_operator {
   function construct() {
     parent::construct();
     $this->value_value = t("Is the logged in user's state");
@@ -43,7 +43,7 @@ class cd_civicrm_handler_filter_state_current_user extends views_handler_filter_
  *
  * @ingroup views_field_handlers
  */
-class cd_civicrm_handler_filter_district_current_user extends views_handler_filter {
+class electoral_api_civicrm_handler_filter_district_current_user extends views_handler_filter {
 
   function value_form(&$form, &$form_state) { }
 

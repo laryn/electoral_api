@@ -2,10 +2,10 @@
 
 /**
  * @file
- * Simpletests for the cd_civicrm module.
+ * Simpletests for the electoral_api_civicrm module.
  */
 
-class cdCiviCRMWebTestCase extends DrupalWebTestCase {
+class electoralApiCiviCRMWebTestCase extends BackdropWebTestCase {
 
   /**
    * Implementation of getInfo() for information
@@ -23,21 +23,21 @@ class cdCiviCRMWebTestCase extends DrupalWebTestCase {
    */
   function setUp() {
 
-    // This is a PITA.  We need to install the required cd_sunlight module,
+    // This is a PITA.  We need to install the required electoral_api module,
     // but if we try to do the same with CiviCRM we get bizzaro errors with block queries.
     // We need to install ourself, but doing so will invoke the dependencies (CiviCRM).
     // So we need to manually install.
-    parent::setUp(array('cd_sunlight'));
-    module_enable(array('cd_civicrm'), FALSE);
+    parent::setUp(array('electoral_api'));
+    module_enable(array('electoral_api_civicrm'), FALSE);
 
     // Turn CiviCRM geocoding off so that this doesn't fire when we process the queue.
-    variable_set('cd_civicrm_geocoding_off', TRUE);
-    _cd_civicrm_geocode_set();
+    variable_set('electoral_api_civicrm_geocoding_off', TRUE);
+    _electoral_api_civicrm_geocode_set();
 
     // Copy the other required variables.  Don't prefix so that we opperate on the original table.
-    $this->_variable_orginal_set('cd_sunlight_api_key');
-    $this->_variable_orginal_set('cd_civicrm_cd');
-    $this->_variable_orginal_set('cd_civicrm_cd_override');
+    $this->_variable_orginal_set('electoral_api_api_key');
+    $this->_variable_orginal_set('electoral_api_civicrm_cd');
+    $this->_variable_orginal_set('electoral_api_civicrm_cd_override');
 
   }
 
@@ -74,7 +74,7 @@ class cdCiviCRMWebTestCase extends DrupalWebTestCase {
           'location_type_id' => 1,
           'is_primary' => TRUE,
           'postal_code' => '00501',
-          'country_id' => CD_CIVICRM_US_COUNTRY_ID,
+          'country_id' => electoral_api_civicrm_US_COUNTRY_ID,
         ),
       ),
     );
@@ -91,9 +91,9 @@ class cdCiviCRMWebTestCase extends DrupalWebTestCase {
       'version' => '3',
       'contact_id' => $result['id'],
       'id' => $result['id'],
-      'return' => 'postal_code,country,contact_type,' . CD_CIVICRM_CD,
+      'return' => 'postal_code,country,contact_type,' . electoral_api_civicrm_CD,
     );
-    $contact = _cd_civicrm_contact_get($contact_search);
+    $contact = _electoral_api_civicrm_contact_get($contact_search);
     $this->assertEqual($contact['postal_code'], '00501', 'A CiviCRM contact simpletest@example.org was created.');
     $this->verbose(
       '$contact_parameters: ' . $this->_var_export($contact_parameters, TRUE) .
@@ -106,8 +106,8 @@ class cdCiviCRMWebTestCase extends DrupalWebTestCase {
     // Process and test.
     $this->_processQueue();
     $this->assertFalse($this->_checkQueue($contact['contact_id']), 'Contact dequeued when queue processed.');
-    $contact = _cd_civicrm_contact_get($contact_search);
-    $this->assertEqual($contact[CD_CIVICRM_CD], 'NY1', 'Contact CD is ' . $contact[CD_CIVICRM_CD]);
+    $contact = _electoral_api_civicrm_contact_get($contact_search);
+    $this->assertEqual($contact[electoral_api_civicrm_CD], 'NY1', 'Contact CD is ' . $contact[electoral_api_civicrm_CD]);
     $this->verbose($this->_var_export($contact_search, TRUE) . $this->_var_export($contact, TRUE));
 
     // Edit the contact.
@@ -135,7 +135,7 @@ class cdCiviCRMWebTestCase extends DrupalWebTestCase {
     }
 
     // We should have the new postal code.
-    $contact = _cd_civicrm_contact_get($contact_search);
+    $contact = _electoral_api_civicrm_contact_get($contact_search);
     $this->assertEqual($contact['postal_code'], '12345', 'CiviCRM contact simpletest@example.org was edited.');
     $this->verbose(
       '$contact_search: ' . $this->_var_export($contact_search, TRUE) .
@@ -149,8 +149,8 @@ class cdCiviCRMWebTestCase extends DrupalWebTestCase {
     // Process the queue, our contact should be processed.
     $this->_processQueue();
     $this->assertFalse($this->_checkQueue($contact['contact_id']), 'Contact dequeued when queue processed.');
-    $contact = _cd_civicrm_contact_get($contact_search);
-    $this->assertEqual($contact[CD_CIVICRM_CD], 'NY21', 'Contact CD is ' . $contact[CD_CIVICRM_CD]);
+    $contact = _electoral_api_civicrm_contact_get($contact_search);
+    $this->assertEqual($contact[electoral_api_civicrm_CD], 'NY21', 'Contact CD is ' . $contact[electoral_api_civicrm_CD]);
     $this->verbose(
       '$contact_search: ' . $this->_var_export($contact_search, TRUE) .
       '$contact: ' . $this->_var_export($contact, TRUE));
@@ -180,7 +180,7 @@ class cdCiviCRMWebTestCase extends DrupalWebTestCase {
     }
 
     // We should have the new postal code.
-    $contact = _cd_civicrm_contact_get($contact_search);
+    $contact = _electoral_api_civicrm_contact_get($contact_search);
     $this->assertEqual($contact['postal_code'], '00000', 'CiviCRM contact simpletest@example.org was edited.');
     $this->verbose(
       '$contact_search: ' . $this->_var_export($contact_search, TRUE) .
@@ -194,9 +194,9 @@ class cdCiviCRMWebTestCase extends DrupalWebTestCase {
     // Process the queue, our contact should be processed.
     $this->_processQueue();
     $this->assertFalse($this->_checkQueue($contact['contact_id']), 'Contact dequeued when queue processed.');
-    $contact = _cd_civicrm_contact_get($contact_search);
+    $contact = _electoral_api_civicrm_contact_get($contact_search);
     // The old CD should remain in place.
-    $this->assertEqual($contact[CD_CIVICRM_CD], 'NY21', 'Contact CD is ' . $contact[CD_CIVICRM_CD]);
+    $this->assertEqual($contact[electoral_api_civicrm_CD], 'NY21', 'Contact CD is ' . $contact[electoral_api_civicrm_CD]);
     $this->verbose(
       '$contact_search: ' . $this->_var_export($contact_search, TRUE) .
       '$contact: ' . $this->_var_export($contact, TRUE));
@@ -209,7 +209,7 @@ class cdCiviCRMWebTestCase extends DrupalWebTestCase {
       'contact_id' => $contact['contact_id'],
       'id' => $contact['contact_id'],
       'contact_type' => 'Individual',
-      CD_CIVICRM_CD => '',
+      electoral_api_civicrm_CD => '',
       'address' => array(
         1 => array(
           'location_type_id' => 1,
@@ -227,9 +227,9 @@ class cdCiviCRMWebTestCase extends DrupalWebTestCase {
     }
 
     // We should have the new postal code and the CD should be gone.
-    $contact = _cd_civicrm_contact_get($contact_search);
+    $contact = _electoral_api_civicrm_contact_get($contact_search);
     $this->assertEqual($contact['postal_code'], '00001', 'CiviCRM contact simpletest@example.org was edited.');
-    $this->assertEqual($contact[CD_CIVICRM_CD], '', 'CiviCRM contact simpletest@example.org CD was removed.');
+    $this->assertEqual($contact[electoral_api_civicrm_CD], '', 'CiviCRM contact simpletest@example.org CD was removed.');
     $this->verbose(
       '$contact_search: ' . $this->_var_export($contact_search, TRUE) .
       '$contact: ' . $this->_var_export($contact, TRUE) .
@@ -242,9 +242,9 @@ class cdCiviCRMWebTestCase extends DrupalWebTestCase {
     // Process the queue, our contact should be processed.
     $this->_processQueue();
     $this->assertFalse($this->_checkQueue($contact['contact_id']), 'Contact dequeued when queue processed.');
-    $contact = _cd_civicrm_contact_get($contact_search);
+    $contact = _electoral_api_civicrm_contact_get($contact_search);
     // The old CD should remain in place.
-    $this->assertEqual($contact[CD_CIVICRM_CD], 'not found', 'Contact CD is ' . $contact[CD_CIVICRM_CD]);
+    $this->assertEqual($contact[electoral_api_civicrm_CD], 'not found', 'Contact CD is ' . $contact[electoral_api_civicrm_CD]);
     $this->verbose(
       '$contact_search: ' . $this->_var_export($contact_search, TRUE) .
       '$contact: ' . $this->_var_export($contact, TRUE));
@@ -263,7 +263,7 @@ class cdCiviCRMWebTestCase extends DrupalWebTestCase {
    * @param int $contact_id
    */
   protected function _checkQueue($contact_id) {
-    return db_query('SELECT 1 FROM {cd_sunlight_cron} WHERE contact_id = :contact_id AND storage_system = :storage_system AND processed = :processed', array(':contact_id' => $contact_id, ':storage_system' => "civicrm", ':processed' => 0))->fetchField();
+    return db_query('SELECT 1 FROM {electoral_api_cron} WHERE contact_id = :contact_id AND storage_system = :storage_system AND processed = :processed', array(':contact_id' => $contact_id, ':storage_system' => "civicrm", ':processed' => 0))->fetchField();
   }
 
   /**
@@ -296,9 +296,9 @@ class cdCiviCRMWebTestCase extends DrupalWebTestCase {
    * Process the CD lookup queue.
    */
   protected function _processQueue() {
-    variable_set('cd_civicrm_geocoding_off', FALSE);
-    _cd_civicrm_process_queue();
-    variable_set('cd_civicrm_geocoding_off', TRUE);
+    variable_set('electoral_api_civicrm_geocoding_off', FALSE);
+    _electoral_api_civicrm_process_queue();
+    variable_set('electoral_api_civicrm_geocoding_off', TRUE);
   }
 
 }

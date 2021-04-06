@@ -3,7 +3,7 @@
 /**
  * Filter handler for state.
  */
-class cd_civicrm_handler_filter_state extends cd_sunlight_handler_filter_state {
+class electoral_api_civicrm_handler_filter_state extends electoral_api_handler_filter_state {
   function get_value_options() {
     parent::get_value_options();
     if (!civicrm_initialize()) {

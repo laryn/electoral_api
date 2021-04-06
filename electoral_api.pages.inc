@@ -2,7 +2,7 @@
 
 /**
  * @file
- *  User-facing page callbacks for cd_sunlight.
+ *  User-facing page callbacks for electoral_api.
  */
 
 /**
@@ -10,10 +10,10 @@
  *
  * @ingroup forms
  *
- * @see cd_sunlight_search_form_validate()
- * @see cd_sunlight_search_form_submit()
+ * @see electoral_api_search_form_validate()
+ * @see electoral_api_search_form_submit()
  */
-function cd_sunlight_search_form($form, &$form_state, $zip = NULL, $state = NULL, $district = NULL) {
+function electoral_api_search_form($form, &$form_state, $zip = NULL, $state = NULL, $district = NULL) {
   $form['instructions'] = array(
     '#markup' => t('Enter a zip code to find your members of Congress.'),
   );
@@ -60,10 +60,10 @@ function cd_sunlight_search_form($form, &$form_state, $zip = NULL, $state = NULL
  *
  * @ingroup forms
  *
- * @see cd_sunlight_search_form()
- * @see cd_sunlight_search_form_submit()
+ * @see electoral_api_search_form()
+ * @see electoral_api_search_form_submit()
  */
-function cd_sunlight_search_form_validate(&$form, &$form_state) {
+function electoral_api_search_form_validate(&$form, &$form_state) {
   if (!is_numeric($form_state['values']['zip'])) {
     form_set_error('zip', t('The Zip code must be numeric.'));
   }
@@ -73,7 +73,7 @@ function cd_sunlight_search_form_validate(&$form, &$form_state) {
 
   // Lookup the district.
   // We do this here so that anything that wants to override the submit handler gets this data.
-  $cd = cd_sunlight_api_lookup_contact($form_state['values']);
+  $cd = electoral_api_api_lookup_contact($form_state['values']);
   if ($cd === FALSE) {
     form_set_error('zip', t('Unfortunately our system is currently having dificulties.  Please try again later.'));
     return;
@@ -90,10 +90,10 @@ function cd_sunlight_search_form_validate(&$form, &$form_state) {
  *
  * @ingroup forms
  *
- * @see cd_sunlight_search_form()
- * @see cd_sunlight_search_form_validate()
+ * @see electoral_api_search_form()
+ * @see electoral_api_search_form_validate()
  */
-function cd_sunlight_search_form_submit(&$form, &$form_state) {
+function electoral_api_search_form_submit(&$form, &$form_state) {
 
   $zip = $form_state['values']['zip'];
   $state = $form_state['values']['cd']['state'];

@@ -2,18 +2,18 @@
 
 /*
  * @file
- * Admin menu callbacks for cd_civicrm.
+ * Admin menu callbacks for electoral_api_civicrm.
  */
 
 /**
  * Admin settings form.
  *
- * @see cd_civicrm_settings_form_validate()
- * @see cd_civicrm_settings_form_submit()
+ * @see electoral_api_civicrm_settings_form_validate()
+ * @see electoral_api_civicrm_settings_form_submit()
  *
  * @ingroup forms
  */
-function cd_civicrm_settings_form() {
+function electoral_api_civicrm_settings_form() {
   civicrm_initialize();
   $form['geocode'] = array(
     '#type' => 'fieldset',
@@ -35,41 +35,41 @@ function cd_civicrm_settings_form() {
     )),
   );
   // TODO This variable was probably removed in Backdrop without replacement.
-  $form['geocode']['cd_civicrm_geocoding_off'] = array(
+  $form['geocode']['electoral_api_civicrm_geocoding_off'] = array(
     '#type' => 'checkbox',
     '#title' => t('Run CiviCRM geocoding only during cron and some CiviCRM profiles'),
-    '#default_value' => variable_get('cd_civicrm_geocoding_off', FALSE),
+    '#default_value' => variable_get('electoral_api_civicrm_geocoding_off', FALSE),
   );
-  $form['geocode']['cd_civicrm_geocode_key'] = array(
+  $form['geocode']['electoral_api_civicrm_geocode_key'] = array(
     '#title' => t('CiviCRM command-line script key'),
     '#type' => 'item',
     '#markup' => defined('CIVICRM_SITE_KEY') && CIVICRM_SITE_KEY ? 'Is defined' : 'Is not defined',
     '#description' => t('The CiviCRM command-line key.'),
   );
-  $form['geocode']['cd_civicrm_geocode_crypt'] = array(
+  $form['geocode']['electoral_api_civicrm_geocode_crypt'] = array(
     '#title' => t('Crypt libraries'),
     '#type' => 'item',
-    '#markup' => _cd_civicrm_crypt_enabled() ? 'Available' : 'Not available',
+    '#markup' => _electoral_api_civicrm_crypt_enabled() ? 'Available' : 'Not available',
     '#description' => t('The <a href=!url>PHP MCrypt extension</a> is required for storing the '
       . 'username. ', array(
       '!url' => 'http://www.php.net/manual/en/book.mcrypt.php',
     )),
   );
   // TODO This variable was probably removed in Backdrop without replacement.
-  $form['geocode']['cd_civicrm_geocode_username'] = array(
+  $form['geocode']['electoral_api_civicrm_geocode_username'] = array(
     '#type' => 'textfield',
     '#title' => t('Name of the Backdrop user for running CiviCRM geocode script'),
-    '#disabled' => !_cd_civicrm_crypt_enabled(),
-    '#default_value' => _cd_civicrm_crypt_decrypt(variable_get('cd_civicrm_geocode_username', '')),
+    '#disabled' => !_electoral_api_civicrm_crypt_enabled(),
+    '#default_value' => _electoral_api_civicrm_crypt_decrypt(variable_get('electoral_api_civicrm_geocode_username', '')),
     '#description' => t('An administrator account should be avoided for security reasons.'),
     '#attributes' => array('autocomplete' => 'off'),
   );
-  $form['geocode']['cd_civicrm_geocode_password'] = array(
+  $form['geocode']['electoral_api_civicrm_geocode_password'] = array(
     '#type' => 'item',
     '#title' => t('Password of the Backdrop user for running CiviCRM geocode script'),
-    '#markup' => defined('CD_CIVICRM_GEOCODE_PASSWORD') && CD_CIVICRM_GEOCODE_PASSWORD ? 'Is defined' : 'Is not defined',
+    '#markup' => defined('electoral_api_civicrm_GEOCODE_PASSWORD') && electoral_api_civicrm_GEOCODE_PASSWORD ? 'Is defined' : 'Is not defined',
     '#description' => t('Define the password in a constant called !const in settings.php',
-      array('!const' => 'CD_CIVICRM_GEOCODE_PASSWORD')),
+      array('!const' => 'electoral_api_civicrm_GEOCODE_PASSWORD')),
     '#attributes' => array('autocomplete' => 'off'),
   );
   $form['geocode']['http_auth'] = array(
@@ -79,19 +79,19 @@ function cd_civicrm_settings_form() {
     '#title' => 'HTTP Authentication',
   );
   // TODO This variable was probably removed in Backdrop without replacement.
-  $form['geocode']['http_auth']['cd_civicrm_http_auth_user'] = array(
+  $form['geocode']['http_auth']['electoral_api_civicrm_http_auth_user'] = array(
     '#type' => 'textfield',
     '#title' => 'User',
-    '#disabled' => !_cd_civicrm_crypt_enabled(),
-    '#default_value' => _cd_civicrm_crypt_decrypt(variable_get('cd_civicrm_http_auth_user', '')),
+    '#disabled' => !_electoral_api_civicrm_crypt_enabled(),
+    '#default_value' => _electoral_api_civicrm_crypt_decrypt(variable_get('electoral_api_civicrm_http_auth_user', '')),
     '#attributes' => array('autocomplete' => 'off'),
   );
   // TODO This variable was probably removed in Backdrop without replacement.
-  $form['geocode']['http_auth']['cd_civicrm_http_auth_password'] = array(
+  $form['geocode']['http_auth']['electoral_api_civicrm_http_auth_password'] = array(
     '#type' => 'textfield',
     '#title' => 'Password',
-    '#disabled' => !_cd_civicrm_crypt_enabled(),
-    '#default_value' => _cd_civicrm_crypt_decrypt(variable_get('cd_civicrm_http_auth_password', '')),
+    '#disabled' => !_electoral_api_civicrm_crypt_enabled(),
+    '#default_value' => _electoral_api_civicrm_crypt_decrypt(variable_get('electoral_api_civicrm_http_auth_password', '')),
     '#attributes' => array('autocomplete' => 'off'),
   );
   $form['geocode']['test'] = array(
@@ -105,11 +105,11 @@ function cd_civicrm_settings_form() {
   $form['geocode']['test']['test'] = array(
     '#type' => 'submit',
     '#value' => t('Test batch geocoding'),
-    '#submit' => array('_cd_civicrm_contacts_geocode'),
-    '#disabled' => !_cd_civicrm_crypt_enabled() ||
+    '#submit' => array('_electoral_api_civicrm_contacts_geocode'),
+    '#disabled' => !_electoral_api_civicrm_crypt_enabled() ||
       !defined('CIVICRM_SITE_KEY') ||
-      !defined('CD_CIVICRM_GEOCODE_PASSWORD') ||
-      !variable_get('cd_civicrm_geocode_username', ''),
+      !defined('electoral_api_civicrm_GEOCODE_PASSWORD') ||
+      !variable_get('electoral_api_civicrm_geocode_username', ''),
   );
 
   return $form;
@@ -118,15 +118,15 @@ function cd_civicrm_settings_form() {
 /**
  * Admin settings form validator.
  *
- * @see cd_civicrm_settings_form()
- * @see cd_civicrm_settings_form_submit()
+ * @see electoral_api_civicrm_settings_form()
+ * @see electoral_api_civicrm_settings_form_submit()
  *
  * @ingroup forms
  */
-function cd_civicrm_settings_form_validate($form, &$form_state) {
+function electoral_api_civicrm_settings_form_validate($form, &$form_state) {
 
   // Test the geocoding username.
-  if ($user_name = $form_state['values']['cd_civicrm_geocode_username']) {
+  if ($user_name = $form_state['values']['electoral_api_civicrm_geocode_username']) {
     $message = 'The geocoding user does not exist';
     $user_valid = FALSE;
     $account = array_shift(user_load_multiple(array(), array('name' => $user_name)));
@@ -142,23 +142,23 @@ function cd_civicrm_settings_form_validate($form, &$form_state) {
       }
     }
     if (!$user_valid) {
-      form_set_error('cd_civicrm_geocode_username', $message);
+      form_set_error('electoral_api_civicrm_geocode_username', $message);
     }
 
     // Encrypt the geocoding username.
-    if (_cd_civicrm_crypt_enabled()) {
-      $user_name_encrypted = _cd_civicrm_crypt_encrypt($user_name);
-      $form_state['values']['cd_civicrm_geocode_username'] = $user_name_encrypted;
+    if (_electoral_api_civicrm_crypt_enabled()) {
+      $user_name_encrypted = _electoral_api_civicrm_crypt_encrypt($user_name);
+      $form_state['values']['electoral_api_civicrm_geocode_username'] = $user_name_encrypted;
     }
   }
 
   // Encrypt HTTP Auth credentials.
-  if ($http_user = $form_state['values']['cd_civicrm_http_auth_user']) {
-    if (_cd_civicrm_crypt_enabled()) {
-      $http_user_encrypted = _cd_civicrm_crypt_encrypt($http_user);
-      $form_state['values']['cd_civicrm_http_auth_user'] = $http_user_encrypted;
-      $http_password_encrypted = _cd_civicrm_crypt_encrypt($form_state['values']['cd_civicrm_http_auth_password']);
-      $form_state['values']['cd_civicrm_http_auth_password'] = $http_password_encrypted;
+  if ($http_user = $form_state['values']['electoral_api_civicrm_http_auth_user']) {
+    if (_electoral_api_civicrm_crypt_enabled()) {
+      $http_user_encrypted = _electoral_api_civicrm_crypt_encrypt($http_user);
+      $form_state['values']['electoral_api_civicrm_http_auth_user'] = $http_user_encrypted;
+      $http_password_encrypted = _electoral_api_civicrm_crypt_encrypt($form_state['values']['electoral_api_civicrm_http_auth_password']);
+      $form_state['values']['electoral_api_civicrm_http_auth_password'] = $http_password_encrypted;
     }
   }
 
@@ -169,10 +169,10 @@ function cd_civicrm_settings_form_validate($form, &$form_state) {
  *
  * @ingroup forms
  *
- * @see cd_civicrm_settings_fields_form_validate()
- * @see cd_civicrm_settings_fields_form_submit()
+ * @see electoral_api_civicrm_settings_fields_form_validate()
+ * @see electoral_api_civicrm_settings_fields_form_submit()
  */
-function cd_civicrm_settings_fields_form($form, &$form_state) {
+function electoral_api_civicrm_settings_fields_form($form, &$form_state) {
   global $db_prefix;
 
   // Get options.
@@ -203,13 +203,13 @@ function cd_civicrm_settings_fields_form($form, &$form_state) {
   );
 
   // TODO This variable was probably removed in Backdrop without replacement.
-  $field_cd_civicrm_cd = variable_get('cd_civicrm_cd', '');
-  $field_cd_civicrm_cd = explode('_', $field_cd_civicrm_cd);
-  $field_cd_civicrm_cd = array_pop($field_cd_civicrm_cd);
-  $form['field_cd_civicrm_cd'] = array(
+  $field_electoral_api_civicrm_cd = variable_get('electoral_api_civicrm_cd', '');
+  $field_electoral_api_civicrm_cd = explode('_', $field_electoral_api_civicrm_cd);
+  $field_electoral_api_civicrm_cd = array_pop($field_electoral_api_civicrm_cd);
+  $form['field_electoral_api_civicrm_cd'] = array(
     '#type' => 'select',
     '#title' => 'Congressional District Field',
-    '#default_value' => check_plain($field_cd_civicrm_cd),
+    '#default_value' => check_plain($field_electoral_api_civicrm_cd),
     '#options' => $fields,
     '#description' => t('Create one alphanumeric text field to store the contact\'s congressional '
       . 'district (should be searchable, database length 16. If you are '
@@ -220,13 +220,13 @@ function cd_civicrm_settings_fields_form($form, &$form_state) {
   );
 
   // TODO This variable was probably removed in Backdrop without replacement.
-  $field_cd_civicrm_cd_override = variable_get('cd_civicrm_cd_override', '');
-  $field_cd_civicrm_cd_override = explode('_', $field_cd_civicrm_cd_override);
-  $field_cd_civicrm_cd_override = array_pop($field_cd_civicrm_cd_override);
-  $form['field_cd_civicrm_cd_override'] = array(
+  $field_electoral_api_civicrm_cd_override = variable_get('electoral_api_civicrm_cd_override', '');
+  $field_electoral_api_civicrm_cd_override = explode('_', $field_electoral_api_civicrm_cd_override);
+  $field_electoral_api_civicrm_cd_override = array_pop($field_electoral_api_civicrm_cd_override);
+  $form['field_electoral_api_civicrm_cd_override'] = array(
     '#type' => 'select',
     '#title' => 'Congressional District Override Field',
-    '#default_value' => check_plain($field_cd_civicrm_cd_override),
+    '#default_value' => check_plain($field_electoral_api_civicrm_cd_override),
     '#options' => $fields,
     '#description' => t('Create a second alphanumeric text field to allow administrators to '
       . 'manually override the value queried from Sunlight (should be searchable, database length 16). '),
@@ -244,26 +244,26 @@ function cd_civicrm_settings_fields_form($form, &$form_state) {
 /**
  * Validator for field binding form.
  *
- * @see cd_civicrm_settings_fields_form()
- * @see cd_civicrm_settings_fields_form_submit()
+ * @see electoral_api_civicrm_settings_fields_form()
+ * @see electoral_api_civicrm_settings_fields_form_submit()
  *
  * @in_group forms
  */
-function cd_civicrm_settings_fields_form_validate($form, &$form_state) {
+function electoral_api_civicrm_settings_fields_form_validate($form, &$form_state) {
 
   // Check that both fields are in the same table.
   $table_1 = db_select('civicrm_custom_field', 'f')
     ->fields('f', array('custom_group_id'))
-    ->condition('id', $form_state['values']['field_cd_civicrm_cd'])
+    ->condition('id', $form_state['values']['field_electoral_api_civicrm_cd'])
     ->execute()
     ->fetchField();
   $table_2 = db_select('civicrm_custom_field', 'f')
     ->fields('f', array('custom_group_id'))
-    ->condition('id', $form_state['values']['field_cd_civicrm_cd_override'])
+    ->condition('id', $form_state['values']['field_electoral_api_civicrm_cd_override'])
     ->execute()
     ->fetchField();
   if ($table_1 != $table_2) {
-    form_set_error('field_cd_civicrm_cd_override', t('Choose two fields from the same group.'));
+    form_set_error('field_electoral_api_civicrm_cd_override', t('Choose two fields from the same group.'));
   }
 }
 
@@ -272,43 +272,43 @@ function cd_civicrm_settings_fields_form_validate($form, &$form_state) {
  *
  * @in_group forms
  *
- * @see cd_civicrm_settings_fields_form()
- * @see cd_civicrm_settings_fields_form_validate()
+ * @see electoral_api_civicrm_settings_fields_form()
+ * @see electoral_api_civicrm_settings_fields_form_validate()
  */
-function cd_civicrm_settings_fields_form_submit($form, &$form_state) {
+function electoral_api_civicrm_settings_fields_form_submit($form, &$form_state) {
 
   // Retrieve the fields data.
   $query = db_select('civicrm_custom_field', 'f');
   $query->join('civicrm_custom_group', 'g', 'f.custom_group_id = g.id');
-  $field_cd_civicrm_cd = $query->fields('f', array('id', 'column_name'))
+  $field_electoral_api_civicrm_cd = $query->fields('f', array('id', 'column_name'))
     ->fields('g', array('table_name'))
-    ->condition('f.id', $form_state['values']['field_cd_civicrm_cd'])
+    ->condition('f.id', $form_state['values']['field_electoral_api_civicrm_cd'])
     ->execute()
     ->fetchObject();
   $query = db_select('civicrm_custom_field', 'f');
   $query->join('civicrm_custom_group', 'g', 'f.custom_group_id = g.id');
-  $field_cd_civicrm_cd_override = $query->fields('f', array('id', 'column_name'))
+  $field_electoral_api_civicrm_cd_override = $query->fields('f', array('id', 'column_name'))
     ->fields('g', array('table_name'))
-    ->condition('f.id', $form_state['values']['field_cd_civicrm_cd_override'])
+    ->condition('f.id', $form_state['values']['field_electoral_api_civicrm_cd_override'])
     ->execute()
     ->fetchObject();
 
   // Save the variables.
   // TODO This variable was probably removed in Backdrop without replacement.
-  variable_set('cd_civicrm_custom_table',
-    $field_cd_civicrm_cd->table_name);
+  variable_set('electoral_api_civicrm_custom_table',
+    $field_electoral_api_civicrm_cd->table_name);
   // TODO This variable was probably removed in Backdrop without replacement.
-  variable_set('cd_civicrm_cd',
-    'custom_' . $field_cd_civicrm_cd->id);
+  variable_set('electoral_api_civicrm_cd',
+    'custom_' . $field_electoral_api_civicrm_cd->id);
   // TODO This variable was probably removed in Backdrop without replacement.
-  variable_set('cd_civicrm_cd_override',
-    'custom_' . $field_cd_civicrm_cd_override->id);
+  variable_set('electoral_api_civicrm_cd_override',
+    'custom_' . $field_electoral_api_civicrm_cd_override->id);
   // TODO This variable was probably removed in Backdrop without replacement.
-  variable_set('cd_civicrm_custom_field_cd',
-    $field_cd_civicrm_cd->column_name);
+  variable_set('electoral_api_civicrm_custom_field_cd',
+    $field_electoral_api_civicrm_cd->column_name);
   // TODO This variable was probably removed in Backdrop without replacement.
-  variable_set('cd_civicrm_custom_field_cd_override',
-    $field_cd_civicrm_cd_override->column_name);
+  variable_set('electoral_api_civicrm_custom_field_cd_override',
+    $field_electoral_api_civicrm_cd_override->column_name);
 
   backdrop_set_message(t('The fields have been saved.'));
 }

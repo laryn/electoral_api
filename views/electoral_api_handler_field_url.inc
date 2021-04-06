@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Views handlers for cd_sunlight.
+ * Views handlers for electoral_api.
  */
 
 /**
@@ -16,11 +16,11 @@
  *  $this->url_path
  *  $this->url_query
  *
- * @see cd_sunlight_handler_field_url_favicon_youtube()
+ * @see electoral_api_handler_field_url_favicon_youtube()
  *
  * @ingroup views_field_handlers
  */
-class cd_sunlight_handler_field_url_favicon extends views_handler_field_url {
+class electoral_api_handler_field_url_favicon extends views_handler_field_url {
 
   protected $favicon_url;
   protected $human_readable;
@@ -61,7 +61,7 @@ class cd_sunlight_handler_field_url_favicon extends views_handler_field_url {
     if (!empty($this->options['display_as_favicon']) && !empty($this->favicon_url)) {
 
       // Resolve favicons.
-      if ($local_url = _cd_sunlight_remote_image_fetch($this->favicon_url)) {
+      if ($local_url = _electoral_api_remote_image_fetch($this->favicon_url)) {
         $value = theme('image', array(
           'path' => $local_url,
           'width' => '16',
@@ -101,7 +101,7 @@ class cd_sunlight_handler_field_url_favicon extends views_handler_field_url {
  *
  * @ingroup views_field_handlers
  */
-class cd_sunlight_handler_field_url_favicon_facebook extends cd_sunlight_handler_field_url_favicon {
+class electoral_api_handler_field_url_favicon_facebook extends electoral_api_handler_field_url_favicon {
 
   function option_definition() {
     $options = parent::option_definition();
@@ -162,7 +162,7 @@ class cd_sunlight_handler_field_url_favicon_facebook extends cd_sunlight_handler
  *
  * @ingroup views_field_handlers
  */
-class cd_sunlight_handler_field_url_favicon_youtube extends cd_sunlight_handler_field_url_favicon {
+class electoral_api_handler_field_url_favicon_youtube extends electoral_api_handler_field_url_favicon {
 
   function render($values) {
     $this->favicon_url = 'http://www.youtube.com/favicon.ico';
@@ -179,7 +179,7 @@ class cd_sunlight_handler_field_url_favicon_youtube extends cd_sunlight_handler_
  *
  * @ingroup views_field_handlers
  */
-class cd_sunlight_handler_field_url_favicon_bioguide extends cd_sunlight_handler_field_url_favicon {
+class electoral_api_handler_field_url_favicon_bioguide extends electoral_api_handler_field_url_favicon {
 
   function render($values) {
     $this->favicon_url = 'http://bioguide.congress.gov/favicon.ico';
@@ -196,7 +196,7 @@ class cd_sunlight_handler_field_url_favicon_bioguide extends cd_sunlight_handler
  *
  * @ingroup views_field_handlers
  */
-class cd_sunlight_handler_field_url_favicon_votesmart extends cd_sunlight_handler_field_url_favicon {
+class electoral_api_handler_field_url_favicon_votesmart extends electoral_api_handler_field_url_favicon {
 
   function render($values) {
     $this->favicon_url = 'http://votesmart.org/static/images/subpages/share/capitol_guy_blue_trans.gif';
@@ -213,7 +213,7 @@ class cd_sunlight_handler_field_url_favicon_votesmart extends cd_sunlight_handle
  *
  * @ingroup views_field_handlers
  */
-class cd_sunlight_handler_field_url_favicon_govtrack extends cd_sunlight_handler_field_url_favicon {
+class electoral_api_handler_field_url_favicon_govtrack extends electoral_api_handler_field_url_favicon {
 
   function render($values) {
     $this->favicon_url = 'http://www.govtrack.us/favicon.ico';
@@ -230,7 +230,7 @@ class cd_sunlight_handler_field_url_favicon_govtrack extends cd_sunlight_handler
  *
  * @ingroup views_field_handlers
  */
-class cd_sunlight_handler_field_url_favicon_opensecrets extends cd_sunlight_handler_field_url_favicon {
+class electoral_api_handler_field_url_favicon_opensecrets extends electoral_api_handler_field_url_favicon {
 
   function render($values) {
     $this->favicon_url = 'http://www.opensecrets.org/favicon.ico';
@@ -247,7 +247,7 @@ class cd_sunlight_handler_field_url_favicon_opensecrets extends cd_sunlight_hand
  *
  * @ingroup views_field_handlers
  */
-class cd_sunlight_handler_field_url_favicon_congresspedia extends cd_sunlight_handler_field_url_favicon {
+class electoral_api_handler_field_url_favicon_congresspedia extends electoral_api_handler_field_url_favicon {
 
   function render($values) {
     $this->favicon_url = 'http://www.opencongress.org/favicon.png';
@@ -264,7 +264,7 @@ class cd_sunlight_handler_field_url_favicon_congresspedia extends cd_sunlight_ha
  *
  * @ingroup views_field_handlers
  */
-class cd_sunlight_handler_field_url_favicon_twitter extends cd_sunlight_handler_field_url_favicon {
+class electoral_api_handler_field_url_favicon_twitter extends electoral_api_handler_field_url_favicon {
 
   function render($values) {
     $this->favicon_url = 'http://twitter.com/favicon.ico';
@@ -281,7 +281,7 @@ class cd_sunlight_handler_field_url_favicon_twitter extends cd_sunlight_handler_
  *
  * @ingroup views_field_handlers
  */
-class cd_sunlight_handler_field_url_favicon_progressive_punch extends cd_sunlight_handler_field_url_favicon {
+class electoral_api_handler_field_url_favicon_progressive_punch extends electoral_api_handler_field_url_favicon {
 
   /**
    * Add all the fields that we need.
@@ -330,7 +330,7 @@ class cd_sunlight_handler_field_url_favicon_progressive_punch extends cd_sunligh
  *
  * @ingroup views_field_handlers
  */
-class cd_sunlight_handler_field_url_favicon_generic extends cd_sunlight_handler_field_url_favicon {
+class electoral_api_handler_field_url_favicon_generic extends electoral_api_handler_field_url_favicon {
 
   function render($values) {
     if (empty($this->human_readable)) {
@@ -364,7 +364,7 @@ class cd_sunlight_handler_field_url_favicon_generic extends cd_sunlight_handler_
  *
  * @ingroup views_field_handlers
  */
-class cd_sunlight_handler_field_url_favicon_webform extends cd_sunlight_handler_field_url_favicon_generic {
+class electoral_api_handler_field_url_favicon_webform extends electoral_api_handler_field_url_favicon_generic {
 
   function render($values) {
     $this->human_readable = 'Contact form';
@@ -378,7 +378,7 @@ class cd_sunlight_handler_field_url_favicon_webform extends cd_sunlight_handler_
  *
  * @ingroup views_field_handlers
  */
-class cd_sunlight_handler_field_url_favicon_website extends cd_sunlight_handler_field_url_favicon_generic {
+class electoral_api_handler_field_url_favicon_website extends electoral_api_handler_field_url_favicon_generic {
 
   function render($values) {
     $this->human_readable = 'Website';
