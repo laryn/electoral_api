@@ -1,19 +1,18 @@
+# Electoral API
 
+This module is a work in progress, converting the obsolete Sunlight Congress API
+module from Drupal 7 to see what kind of functionality can be achieved using
+ProPublica's Electoral API in Backdrop.
 
+## @todo: Outdated information below needs updating after development
 
-*** SUNLIGHT CONGRESSIONAL DISTRICTS ***
-
-
-
-** ABOUT **
-
-This module 
+This module
 - Fetches data about the current members of Congress using the Sunlight Congress API.
     http://services.sunlightlabs.com/docs/Sunlight_Congress_API/
 - Provides an API for interfacing with Sunlight.
 - Exposes the members of Congress to the Views module.
 - With one of the contact integration modules (currently just CiviCRM Congressional Districts
-  module) the congressional district of your contacts can be automatically determined.  
+  module) the congressional district of your contacts can be automatically determined.
 - Provides a form to search for members of Congress by ZIP.
 
 
@@ -49,7 +48,7 @@ You can either customize it or create a new view of the type "Congress".
 
 ** USING THE API **
 
-The API should only be used in situations where Views cannot be used.  In the future the Views 
+The API should only be used in situations where Views cannot be used.  In the future the Views
 integration will likely see more tending than the API.  Here are the API functions.  See the
 docbook comments for more info.
 
